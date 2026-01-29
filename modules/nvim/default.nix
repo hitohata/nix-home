@@ -3,7 +3,7 @@ let
   luaConfig = builtins.readFile ./lua/init.lua;
 
   # Plugins
-  # corePlugins = import ./plugins/core.nix { inherit pkgs; };
+  corePlugins = import ./plugins/core.nix { inherit pkgs; };
   uiPlugins = import ./plugins/ui.nix { inherit pkgs; };
   completionPlugins = import ./plugins/completion.nix { inherit pkgs; };
   languagePlugins = import ./plugins/languages.nix { inherit pkgs; };
@@ -13,6 +13,7 @@ let
   rustPackages = import ./packages/rust.nix { inherit pkgs; };
   typescriptPackages = import ./packages/typescript.nix { inherit pkgs; };
   pythonPackages = import ./packages/python.nix { inherit pkgs; };
+  luaPackages = import ./packages/lua.nix { inherit pkgs; };
   toolsPackages = import ./packages/tools.nix { inherit pkgs; };
 in
 {
@@ -20,10 +21,10 @@ in
     enable = true;    
     defaultEditor = true;
     
-#    plugins = corePlugins
-#      ++ uiPlugins
-#      ++ completionPlugins
-#      ++ languagePlugins;
+    plugins = corePlugins
+      ++ uiPlugins
+      ++ completionPlugins
+      ++ languagePlugins;
 
     extraLuaConfig = luaConfig;
 
@@ -31,6 +32,7 @@ in
       ++ rustPackages
       ++ typescriptPackages
       ++ pythonPackages
+      ++ luaPackages
       ++ toolsPackages;
   };
 }

@@ -1,9 +1,9 @@
 { pkgs, ... }: with pkgs.vimPlugins; [
   {
-    plugin = rust-tools-nvim;
+    plugin = rustaceanvim;
     type = "lua";
     config = ''
-      require("rust-tools").setup {
+      vim.g.rustaceanvim = {
         server = {
           on_attach = _G.lsp_on_attach,
           capabilities = _G.lsp_capabilities,

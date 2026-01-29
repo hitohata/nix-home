@@ -23,12 +23,18 @@
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
       _G.lsp_capabilities = capabilities
 
-      local lspconfig = require("lspconfig")
+      -- LSP on_attach autocmd
+      vim.api.nvim_create_autocmd("LspAttach", {
+        callback = function(args)
+          on_attach(vim.lsp.get_client_by_id(args.data.client_id), args.buf)
+        end,
+      })
 
       -- Nix
-      lspconfig.nil_ls.setup {
-        on_attach = on_attach,
-        capabilities = capabilities,
+      vim.lsp.config.nil_ls = {
+        cmd = { "nil" },
+        filetypes = { "nix" },
+        root_markers = { "flake.nix", ".git" },
         settings = {
           ["nil"] = {
             formatting = {
@@ -36,19 +42,53 @@
             },
           },
         },
+        capabilities = capabilities,
       }
+      vim.lsp.enable("nil_ls")
 
       -- TypeScript
-      lspconfig.ts_ls.setup {
-        on_attach = on_attach,
+      vim.lsp.config.ts_ls = {
+        cmd = { "typescript-language-server", "--stdio" },
+        filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+        root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
         capabilities = capabilities,
       }
+      vim.lsp.enable("ts_ls")
 
       -- Python
-      lspconfig.pyright.setup {
-        on_attach = on_attach,
+      vim.lsp.config.pyright = {
+        cmd = { "pyright-langserver", "--stdio" },
+        filetypes = { "python" },
+        root_markers = { "pyproject.toml", "setup.py", "requirements.txt", ".git" },
         capabilities = capabilities,
       }
+      vim.lsp.enable("pyright")
+
+      -- Lua
+      vim.lsp.config.lua_ls = {
+        cmd = { "lua-language-server" },
+        filetypes = { "lua" },
+        root_markers = { ".luarc.json", ".luarc.jsonc", ".git" },
+        settings = {
+          Lua = {
+            runtime = {
+              version = "LuaJIT",
+            },
+            diagnostics = {
+              globals = { "vim" },
+            },
+            workspace = {
+              library = vim.api.nvim_get_runtime_file("", true),
+              checkThirdParty = false,
+            },
+            telemetry = {
+              enable = false,
+            },
+          },
+        },
+        capabilities = capabilities,
+      }
+      vim.lsp.enable("lua_ls")
     '';
   }
 ]

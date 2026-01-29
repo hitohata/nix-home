@@ -4,6 +4,42 @@
   cmp-path
   luasnip
   cmp_luasnip
+
+  # GitHub Copilot
+  {
+    plugin = copilot-lua;
+    type = "lua";
+    config = ''
+      require("copilot").setup {
+        panel = {
+          enabled = true,
+          auto_refresh = true,
+          keymap = {
+            open = "<M-CR>",
+          },
+        },
+        suggestion = {
+          enabled = true,
+          auto_trigger = true,
+          keymap = {
+            accept = "<M-l>",
+            accept_word = "<M-k>",
+            accept_line = "<M-j>",
+            next = "<M-]>",
+            prev = "<M-[>",
+            dismiss = "<C-]>",
+          },
+        },
+        filetypes = {
+          yaml = true,
+          markdown = true,
+          gitcommit = true,
+          gitrebase = true,
+        },
+      }
+    '';
+  }
+
   {
     plugin = nvim-cmp;
     type = "lua";
