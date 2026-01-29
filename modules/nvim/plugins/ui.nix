@@ -1,5 +1,18 @@
 { pkgs, ... }: with pkgs.vimPlugins; [
-  gruvbox-nvim
-  telescope-nvim
+  {
+    plugin = gruvbox-nvim;
+    type = "lua";
+    config = ''
+      require("gruvbox").setup {}
+      vim.cmd("colorscheme gruvbox")
+    '';
+  }
+  {
+    plugin = telescope-nvim;
+    type = "lua";
+    config = ''
+      require("telescope").setup {}
+    '';
+  }
 ]
 

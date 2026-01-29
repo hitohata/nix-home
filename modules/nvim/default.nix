@@ -3,7 +3,7 @@ let
   luaConfig = builtins.readFile ./lua/init.lua;
 
   # Plugins
-  corePlugins = import ./plugins/core.nix { inherit pkgs; };
+  # corePlugins = import ./plugins/core.nix { inherit pkgs; };
   uiPlugins = import ./plugins/ui.nix { inherit pkgs; };
   completionPlugins = import ./plugins/completion.nix { inherit pkgs; };
   languagePlugins = import ./plugins/languages.nix { inherit pkgs; };
@@ -20,10 +20,10 @@ in
     enable = true;    
     defaultEditor = true;
     
-    plugins = corePlugins
-      ++ uiPlugins
-      ++ completionPlugins
-      ++ languagePlugins;
+#    plugins = corePlugins
+#      ++ uiPlugins
+#      ++ completionPlugins
+#      ++ languagePlugins;
 
     extraLuaConfig = luaConfig;
 
