@@ -7,6 +7,11 @@
   manual.manpages.enable = false;
   home.enableNixpkgsReleaseCheck = false;
 
+  # System-wide packages
+  home.packages = with pkgs; [
+    lazygit
+  ];
+
   # Neovim setting
   imports = [ ./modules/nvim/default.nix ]; 
   
