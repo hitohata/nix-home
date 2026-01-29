@@ -1,4 +1,8 @@
-{ pkgs, pkgs-unstable, ... }: {
+{ pkgs, pkgs-unstable, ... }:
+let
+  luaConfig = builtins.readFile ./lua/init.lua;
+in
+{
   programs.neovim = {
     enable = true;    
     defaultEditor = true;
@@ -9,10 +13,7 @@
       telescope-nvim
     ];
 
-    extraLuaConfig = ''
-      vim.opt.number = te
-      vim.cmd("colorscheme gruvbox")
-    '';
+    extraLuaConfig = luaConfig;
 
     extraPackages = with pkgs; [
       nil
