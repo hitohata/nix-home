@@ -204,7 +204,7 @@
     type = "lua";
     config = ''
       require("which-key").setup {
-        delay = 300,
+        delay = 100,
       }
     '';
   }
