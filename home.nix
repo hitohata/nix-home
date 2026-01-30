@@ -7,14 +7,10 @@
   manual.manpages.enable = false;
   home.enableNixpkgsReleaseCheck = false;
 
-  # System-wide packages
-  home.packages = with pkgs; [
-    lazygit
-  ];
-
   # Module imports
   imports = [
     ./modules/nvim/default.nix
     ./modules/bash/default.nix
+    ./modules/packages/default.nix
   ];
 }
