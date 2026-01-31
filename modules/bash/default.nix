@@ -1,9 +1,10 @@
-{ pkgs, ... }:
+{ pkgs, configName, ... }:
 let
   # Import shell scripts
   initScript = builtins.readFile ./scripts/init.sh;
   functionsScript = builtins.readFile ./scripts/functions.sh;
   profileScript = builtins.readFile ./scripts/profile.sh;
+  apply = builtins.readFile ./scripts/apply.sh;
 in
 {
   programs.bash = {
@@ -11,9 +12,6 @@ in
 
     # Shell aliases
     shellAliases = {
-      # Nix
-      apply = "nix run github:nix-community/home-manager/release-25.11 -- --impure switch --flake .#root -b backup";
-
       # Navigation
       ".." = "cd ..";
       "..." = "cd ../..";
@@ -63,8 +61,12 @@ in
 
     # Extra content for .bashrc
     initExtra = ''
+      # Set NIX_HOME_TARGET for apply command
+      export NIX_HOME_TARGET="${configName}"
+
       ${initScript}
       ${functionsScript}
+      ${apply}
     '';
 
     # Extra content for .profile (login shell)

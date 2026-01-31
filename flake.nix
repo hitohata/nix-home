@@ -14,18 +14,32 @@
 
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ... }:
     let
-      system = builtins.currentSystem;
-      pkgs = nixpkgs.legacyPackages.${system};
-      pkgs-unstable = import nixpkgs-unstable {
-        inherit system;
-        config.allowUnfree = true;
-      };
+      mkHomeConfig = system: username: homeDirectory: configName:
+        let
+          pkgs = nixpkgs.legacyPackages.${system};
+          pkgs-unstable = import nixpkgs-unstable {
+            inherit system;
+            config.allowUnfree = true;
+          };
+        in home-manager.lib.homeManagerConfiguration {
+          inherit pkgs;
+          extraSpecialArgs = { inherit pkgs-unstable configName; };
+          modules = [
+              ./home.nix
+              {
+                home.username = username;
+                home.homeDirectory = homeDirectory;
+              }
+            ];
+        };
     in {
       # --- Home Manager ---
-      homeConfigurations.root = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-        extraSpecialArgs = { inherit pkgs-unstable; };
-        modules = [ ./home.nix ];
+      homeConfigurations = {
+        # Specific configurations
+        "root@intel-pc" = mkHomeConfig "x86_64-linux" "root" "/root" "root@intel-pc";
+        "root@aarch64" = mkHomeConfig "aarch64-linux" "root" "/root" "root@aarch64";
+
+        "user@intel" = mkHomeConfig "x86_64-linux" "hoge" "/home/hoge" "user@intel";
       };
     };
 }
