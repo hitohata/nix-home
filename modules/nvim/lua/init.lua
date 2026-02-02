@@ -22,22 +22,20 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.updatetime = 250
 vim.opt.timeoutlen = 300
-vim.opt.showmode = false  -- Shown by lualine instead
+vim.opt.showmode = false -- Shown by lualine instead
 
 -- OSC 52 clipboard support (for remote/container environments)
-if vim.fn.has("nvim-0.10") == 1 then
-  vim.g.clipboard = {
-    name = "OSC 52",
-    copy = {
-      ["+"] = require("vim.ui.clipboard.osc52").copy("+"),
-      ["*"] = require("vim.ui.clipboard.osc52").copy("*"),
-    },
-    paste = {
-      ["+"] = require("vim.ui.clipboard.osc52").paste("+"),
-      ["*"] = require("vim.ui.clipboard.osc52").paste("*"),
-    },
-  }
-end
+vim.g.clipboard = {
+	name = "OSC 52",
+	copy = {
+		["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+		["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+	},
+	paste = {
+		["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+		["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+	},
+}
 
 -- Leader key
 vim.g.mapleader = " "
@@ -93,10 +91,7 @@ vim.keymap.set("n", "<leader>nh", "<cmd>Noice history<cr>", { desc = "Noice hist
 vim.keymap.set("n", "<leader>nl", "<cmd>Noice last<cr>", { desc = "Noice last message" })
 vim.keymap.set("n", "<leader>nn", "<cmd>Notifications<cr>", { desc = "Show notifications" })
 vim.keymap.set("n", "<leader>nc", function()
-  local messages = vim.fn.execute("messages")
-  vim.fn.setreg("+", messages)
-  vim.notify("Messages copied to clipboard!", vim.log.levels.INFO)
+	local messages = vim.fn.execute("messages")
+	vim.fn.setreg("+", messages)
+	vim.notify("Messages copied to clipboard!", vim.log.levels.INFO)
 end, { desc = "Copy messages to clipboard" })
-
-
-
