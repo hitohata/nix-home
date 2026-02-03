@@ -14,6 +14,7 @@
 
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ... }:
     let
+      # Home manager configurations
       mkHomeConfig = system: username: homeDirectory: configName:
         let
           pkgs = nixpkgs.legacyPackages.${system};
@@ -32,14 +33,37 @@
               }
             ];
         };
+      
+      # NixOS configuration 
+      mkNixosConfig = system: hostname: username: configName:
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          modules = [
+            ./hosts/${hostname}/configuration.nix
+            home-manager.nixosModules.home-manager {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.${username} = import ./home.nix;
+              home-manager.extraSpecialArgs = {
+                inherit configName;
+                pkgs-unstable = import nixpkgs-unstable { inherit system; config.allowUnfree = true; };
+              };
+            }
+          ];
+        };
     in {
       # --- Home Manager ---
       homeConfigurations = {
         # Specific configurations
-        "root@intel-pc" = mkHomeConfig "x86_64-linux" "root" "/root" "root@intel-pc";
-        "root@aarch64" = mkHomeConfig "aarch64-linux" "root" "/root" "root@aarch64";
+          "root@intel-pc" = mkHomeConfig "x86_64-linux" "root" "/root" "root@intel-pc";
+          "root@aarch64" = mkHomeConfig "aarch64-linux" "root" "/root" "root@aarch64";
 
-        "user@intel" = mkHomeConfig "x86_64-linux" "hoge" "/home/hoge" "user@intel";
+          "user@intel" = mkHomeConfig "x86_64-linux" "hoge" "/home/hoge" "user@intel";
+
+      };
+      # For nixOS
+      nixosConfigurations = {
+        "user@n100" = mkNixosConfig "x86_64-linux" "n100" "hoge" "user@n100";
       };
     };
 }
