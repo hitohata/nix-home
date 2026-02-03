@@ -45,22 +45,24 @@
               home-manager.useUserPackages = true;
               home-manager.users.${username} = import ./home.nix;
               home-manager.extraSpecialArgs = {
-                pkgs-unstable = import pkgs-unstable { inherit system; config.allowUnfree = true; }
-              }
+                pkgs-unstable = import nixpkgs-unstable { inherit system; config.allowUnfree = true; };
+              };
             }
-          ]
-        }
+          ];
+        };
     in {
       # --- Home Manager ---
       homeConfigurations = {
         # Specific configurations
-        "root@intel-pc" = mkHomeConfig "x86_64-linux" "root" "/root" "root@intel-pc";
-        "root@aarch64" = mkHomeConfig "aarch64-linux" "root" "/root" "root@aarch64";
+          "root@intel-pc" = mkHomeConfig "x86_64-linux" "root" "/root" "root@intel-pc";
+          "root@aarch64" = mkHomeConfig "aarch64-linux" "root" "/root" "root@aarch64";
 
-        "user@intel" = mkHomeConfig "x86_64-linux" "hoge" "/home/hoge" "user@intel";
+          "user@intel" = mkHomeConfig "x86_64-linux" "hoge" "/home/hoge" "user@intel";
 
-        # For nixOS
-        "user@n100" = mkHomeConfig "x86_64-linux" "n100" "hoge";
+      };
+      # For nixOS
+      nixosConfigurations = {
+        "user@n100" = mkNixosConfig "x86_64-linux" "n100" "hoge";
       };
     };
 }
