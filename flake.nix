@@ -35,16 +35,17 @@
         };
       
       # NixOS configuration 
-      mkNixosConfig = system: hostname: username:
+      mkNixosConfig = system: hostname: username: configName:
         nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [
             ./hosts/${hostname}/configuration.nix
             home-manager.nixosModules.home-manager {
-              home-mamager.useGlobalPkgs = true;
+              home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.${username} = import ./home.nix;
               home-manager.extraSpecialArgs = {
+                inherit configName;
                 pkgs-unstable = import nixpkgs-unstable { inherit system; config.allowUnfree = true; };
               };
             }
@@ -62,7 +63,7 @@
       };
       # For nixOS
       nixosConfigurations = {
-        "user@n100" = mkNixosConfig "x86_64-linux" "n100" "hoge";
+        "user@n100" = mkNixosConfig "x86_64-linux" "n100" "hoge" "user@n100";
       };
     };
 }
