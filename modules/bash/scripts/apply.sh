@@ -20,6 +20,10 @@ apply() {
   git add . 2>/dev/null
 
   # execute
+  if [ -e /etc/NIXOS ]; then
+    sudo nixos-rebuild switch --flake ".#$target"
+  else
   nix run github:nix-community/home-manager/release-25.11 -- \
-   --impure switch --flake ".#$target" -b backup
+   --impure switch --flake ".#$target"
+  fi
 }

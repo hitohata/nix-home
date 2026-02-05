@@ -61,7 +61,7 @@
       # --- Home Manager ---
       homeConfigurations = builtins.mapAttrs
         (name: node: mkHomeConfig node.system node.username node.homeDir name)
-        nodes;
+        (nixpkgs.lib.filterAttrs (_: n: !n.isNixos) nodes); 
 
       # For nixOS
       nixosConfigurations = builtins.mapAttrs
