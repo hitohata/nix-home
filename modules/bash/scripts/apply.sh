@@ -21,5 +21,5 @@ apply() {
 
   # execute
   nix run github:nix-community/home-manager/release-25.11 -- \
-   --impure switch --flake ".#$target" -b backup --option sandbox false
+   --impure switch --flake ".#$target" -b backup
 }
