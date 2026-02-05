@@ -21,9 +21,11 @@ apply() {
 
   # execute
   if [ -e /etc/NIXOS ]; then
+    echo "rebuild and switch to new nix os setting..."
     sudo nixos-rebuild switch --flake ".#$target"
   else
-  nix run github:nix-community/home-manager/release-25.11 -- \
-   --impure switch --flake ".#$target"
+    echo "rebuild and switch to new flake setting..."
+    nix run github:nix-community/home-manager/release-25.11 -- \
+      --impure switch --flake ".#$target"
   fi
 }
