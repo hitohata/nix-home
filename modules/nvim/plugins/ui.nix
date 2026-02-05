@@ -57,14 +57,18 @@
 
   # Colorscheme
   {
-    plugin = gruvbox-nvim;
+    plugin = kanagawa-nvim;
     type = "lua";
     config = ''
-      require("gruvbox").setup {
-        contrast = "hard",
-        transparent_mode = false,
+      require("kanagawa").setup {
+        theme = "dragon",
+        transparent = true,
+        background = {
+          dark = "dragon",
+          light = "lotus"
+        },
       }
-      vim.cmd("colorscheme gruvbox")
+      vim.cmd("colorscheme kanagawa-dragon")
     '';
   }
 
@@ -90,7 +94,7 @@
     config = ''
       require("lualine").setup {
         options = {
-          theme = "gruvbox",
+          theme = "kanagawa",
           component_separators = { left = "", right = "" },
           section_separators = { left = "", right = "" },
           globalstatus = true,
