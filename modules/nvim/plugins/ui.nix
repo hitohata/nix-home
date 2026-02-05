@@ -62,7 +62,6 @@
     config = ''
       require("kanagawa").setup {
         theme = "dragon",
-        transparent = true,
         background = {
           dark = "dragon",
           light = "lotus"
