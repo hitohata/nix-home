@@ -24,6 +24,10 @@ vim.opt.updatetime = 250
 vim.opt.timeoutlen = 300
 vim.opt.showmode = false -- Shown by lualine instead
 
+-- Spell checking
+vim.opt.spell = true
+vim.opt.spelllang = "en_us"
+
 -- OSC 52 clipboard support (for remote/container environments)
 vim.g.clipboard = {
 	name = "OSC 52",
