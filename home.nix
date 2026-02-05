@@ -9,6 +9,7 @@
   # Set NIX_HOME_TARGET so 'apply' command knows which config to use
   home.sessionVariables = {
     NIX_HOME_TARGET = configName;
+    SHELL = "${pkgs.bash}/bin/bash";
   };
 
   # Module imports
@@ -17,5 +18,6 @@
     ./modules/bash/default.nix
     ./modules/packages/default.nix
     ./modules/ui/fonts.nix
+    ./modules/terminal/zellij.nix
   ];
 }
