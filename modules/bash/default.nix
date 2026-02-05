@@ -7,6 +7,12 @@ let
   apply = builtins.readFile ./scripts/apply.sh;
 in
 {
+  # Starship prompt
+  programs.starship = {
+    enable = true;
+    enableBashIntegration = true;
+  };
+
   programs.bash = {
     enable = true;
 
