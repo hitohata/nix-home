@@ -5,16 +5,18 @@
     system = "x86_64-linux";
     hostname = "intel-pc";
     username = "root";
-    homeDir =  "root";
+    homeDir =  "/root";
     isNixos = false;
+    extraModules = [];
   };
   # for debugging
   "root@aarch64" = {
     system = "aarch64-linux";
     hostname = "aarch64";
     username = "root";
-    homeDir =  "root";
+    homeDir =  "/root";
     isNixos = false;
+    extraModules = [];
   };
 
   # general user
@@ -24,6 +26,7 @@
     username = "hoge";
     homeDir =  "/home/hoge";
     isNixos = false;
+    extraModules = [];
   };
 
   "user@n100" = {
@@ -32,5 +35,6 @@
     username = "hoge";
     homeDir =  "/home/hoge";
     isNixos = true;
+    extraModules = [];
   };
 }
