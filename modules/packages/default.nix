@@ -15,6 +15,9 @@
     fd
     fzf
 
+    # File managers
+    yazi
+
     # Process tools
     htop
     btop
