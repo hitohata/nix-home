@@ -9,6 +9,7 @@ in
 {
   imports = [
     ./tools/starship.nix
+    ./tools/fzf.nix
   ];
 
   programs.bash = {
