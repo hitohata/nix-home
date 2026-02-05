@@ -14,24 +14,30 @@
 
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ... }:
     let
+
+      # import nodes
+      nodes = import ./nodes.nix;
+
+      mkUnstable = system: import nixpkgs-unstable {
+        inherit system;
+        config.allowUnfree = true;
+      };
+
       # Home manager configurations
       mkHomeConfig = system: username: homeDirectory: configName:
-        let
+        home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system};
-          pkgs-unstable = import nixpkgs-unstable {
-            inherit system;
-            config.allowUnfree = true;
+          extraSpecialArgs = {
+            inherit configName;
+            pkgs-unstable = mkUnstable system;
           };
-        in home-manager.lib.homeManagerConfiguration {
-          inherit pkgs;
-          extraSpecialArgs = { inherit pkgs-unstable configName; };
           modules = [
-              ./home.nix
-              {
-                home.username = username;
-                home.homeDirectory = homeDirectory;
-              }
-            ];
+            ./home.nix
+            {
+              home.username = username;
+              home.homeDirectory = homeDirectory;
+            }
+          ];
         };
       
       # NixOS configuration 
@@ -46,24 +52,20 @@
               home-manager.users.${username} = import ./home.nix;
               home-manager.extraSpecialArgs = {
                 inherit configName;
-                pkgs-unstable = import nixpkgs-unstable { inherit system; config.allowUnfree = true; };
+                pkgs-unstable = mkUnstable.system;
               };
             }
           ];
         };
     in {
       # --- Home Manager ---
-      homeConfigurations = {
-        # Specific configurations
-          "root@intel-pc" = mkHomeConfig "x86_64-linux" "root" "/root" "root@intel-pc";
-          "root@aarch64" = mkHomeConfig "aarch64-linux" "root" "/root" "root@aarch64";
+      homeConfigurations = builtins.mapAttrs
+        (name: node: mkHomeConfig node.system node.username node.homeDir name)
+        nodes;
 
-          "user@intel" = mkHomeConfig "x86_64-linux" "hoge" "/home/hoge" "user@intel";
-
-      };
       # For nixOS
-      nixosConfigurations = {
-        "user@n100" = mkNixosConfig "x86_64-linux" "n100" "hoge" "user@n100";
-      };
+      nixosConfigurations = builtins.mapAttrs
+        (name: node: mkNixosConfig node.system node.hostname node.username name)
+        (nixpkgs.lib.filterAttrs (_: n: n.isNixos) nodes); 
     };
 }
