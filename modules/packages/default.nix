@@ -22,6 +22,9 @@
     htop
     btop
 
+    # Terminal multiplexer
+    zellij
+
     # Git tools
     lazygit
     gh
