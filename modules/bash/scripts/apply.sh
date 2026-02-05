@@ -20,6 +20,12 @@ apply() {
   git add . 2>/dev/null
 
   # execute
-  nix run github:nix-community/home-manager/release-25.11 -- \
-   --impure switch --flake ".#$target" -b backup --option sandbox false
+  if [ -e /etc/NIXOS ]; then
+    echo "rebuild and switch to new nix os setting..."
+    sudo nixos-rebuild switch --flake ".#$target"
+  else
+    echo "rebuild and switch to new flake setting..."
+    nix run github:nix-community/home-manager/release-25.11 -- \
+      --impure switch --flake ".#$target"
+  fi
 }
