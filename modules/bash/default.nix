@@ -7,6 +7,10 @@ let
   apply = builtins.readFile ./scripts/apply.sh;
 in
 {
+  imports = [
+    ./tools/starship.nix
+  ];
+
   programs.bash = {
     enable = true;
 
