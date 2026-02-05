@@ -7,11 +7,9 @@ let
   apply = builtins.readFile ./scripts/apply.sh;
 in
 {
-  # Starship prompt
-  programs.starship = {
-    enable = true;
-    enableBashIntegration = true;
-  };
+  imports = [
+    ./tools/starship.nix
+  ];
 
   programs.bash = {
     enable = true;
