@@ -12,8 +12,10 @@
 - [File Explorer](#file-explorer)
 - [Search and Navigation](#search-and-navigation)
 - [Editing](#editing)
+- [Markdown](#markdown)
 - [Notifications and Messages](#notifications-and-messages)
 - [Spell Checking](#spell-checking)
+- [Commands](#commands)
 - [Key Notation Reference](#key-notation-reference)
 
 ---
@@ -143,6 +145,15 @@
 | `J` | Move selected line(s) down |
 | `K` | Move selected line(s) up |
 
+## Markdown
+
+| Keybinding | Description |
+|------------|-------------|
+| `<leader>mr` | Toggle markdown render (render-markdown.nvim) |
+| `<leader>z` | Toggle zen mode (distraction-free writing) |
+| `<leader>mp` | Open markdown preview in browser |
+| `<leader>ms` | Stop markdown preview |
+
 ## Notifications and Messages
 
 | Keybinding | Description |
@@ -166,6 +177,40 @@ Neovim has built-in spell checking enabled for US English. Additionally, CSpell 
 | `[s` | Previous misspelled word |
 | `zg` | Add word to dictionary |
 | `zw` | Mark word as incorrect |
+
+## Commands
+
+Neovim commands are executed in normal mode by typing `:` followed by the command name and pressing Enter.
+
+### Custom Commands
+
+| Command | Description |
+|---------|-------------|
+| `:LazyGit` | Open LazyGit in a terminal window |
+| `:RenderMarkdown toggle` | Toggle markdown rendering on/off |
+| `:ZenMode` | Toggle zen mode for focused writing |
+| `:MarkdownPreview` | Open markdown preview in browser |
+| `:MarkdownPreviewStop` | Stop markdown preview server |
+| `:Telescope find_files` | Find files using Telescope |
+| `:Telescope live_grep` | Search text in files |
+| `:NvimTreeToggle` | Toggle file explorer |
+| `:ToggleTerm` | Toggle terminal window |
+
+### Built-in Commands
+
+| Command | Description |
+|---------|-------------|
+| `:w` | Save (write) current file |
+| `:q` | Quit current window |
+| `:wq` or `:x` | Save and quit |
+| `:q!` | Quit without saving |
+| `:e <file>` | Edit/open a file |
+| `:bn` | Next buffer |
+| `:bp` | Previous buffer |
+| `:bd` | Delete/close buffer |
+| `:split` or `:sp` | Split window horizontally |
+| `:vsplit` or `:vsp` | Split window vertically |
+| `:help <topic>` | Open help for a topic |
 
 ---
 
