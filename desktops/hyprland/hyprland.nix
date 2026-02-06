@@ -15,7 +15,7 @@
         follow_mouse = 1;
         touchpad = {
           natural_scroll = true;
-        }
+        };
         sensitivity = 0;
       };
 
@@ -37,10 +37,13 @@
           size = 3;
           passes = 1;
         };
-        drop_shadow = true;
-        shadow_range = 4;
-        shadow_render_power = 3;
-        "col.shadow" = "rgba(1a1a1aee)";
+
+        shadow = {
+          enabled = true;
+          range = 4;
+          render_power = 3;
+          color = "rgba(1a1a1aee)";
+        };
       };
 
       # Animations
@@ -65,7 +68,7 @@
 
       # Master layout
       master = {
-        new_status = "master";
+        new_on_top = true;
       };
 
       # Gestures
@@ -142,12 +145,9 @@
       ];
 
       # Window rules
-      windowrule = [
-        "float, ^(pavucontrol)$"
-        "float, ^(nm-connection-editor)$"
-      ];
-
       windowrulev2 = [
+        "float, class:^(pavucontrol)$"
+        "float, class:^(nm-connection-editor)$"
         "suppressevent maximize, class:.*"
       ];
     };
