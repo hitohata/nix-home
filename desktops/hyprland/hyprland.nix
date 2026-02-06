@@ -1,11 +1,6 @@
 { pkgs, ... }: {
-
-  enable = true;
-G
-  services.dbus.enable = true;
-
   wayland.windowManager.hyprland = {
-
+    enable = true;
     
     settings = {
       # Monitor configuration
@@ -20,7 +15,7 @@ G
         follow_mouse = 1;
         touchpad = {
           natural_scroll = true;
-        };
+        }
         sensitivity = 0;
       };
 
