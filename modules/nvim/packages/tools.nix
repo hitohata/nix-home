@@ -10,5 +10,8 @@
 
   # Node.js (required for Copilot)
   nodejs
+
+  # Spell checker
+  cspell
 ]
 
