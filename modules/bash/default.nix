@@ -14,6 +14,7 @@ in
 
   programs.bash = {
     enable = true;
+    enableCompletion = true;
 
     # Shell aliases
     shellAliases = {
