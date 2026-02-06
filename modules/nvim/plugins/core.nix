@@ -89,6 +89,15 @@
         capabilities = capabilities,
       }
       vim.lsp.enable("lua_ls")
+
+      -- CSpell
+      vim.lsp.config.cspell = {
+        cmd = { "cspell-lsp", "--stdio" },
+        filetypes = { "markdown", "text", "gitcommit", "nix", "lua", "typescript", "javascript", "python" },
+        root_markers = { ".git", "cspell.json", ".cspell.json" },
+        capabilities = capabilities,
+      }
+      vim.lsp.enable("cspell")
     '';
   }
 ]
