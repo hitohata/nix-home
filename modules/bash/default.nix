@@ -12,6 +12,11 @@ in
     ./tools/fzf.nix
   ];
 
+  # Bash completion package
+  home.packages = with pkgs; [
+    bash-completion
+  ];
+
   programs.bash = {
     enable = true;
     enableCompletion = true;
