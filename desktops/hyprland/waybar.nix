@@ -3,9 +3,9 @@
     enable = true;
   };
 
-  wayland.windowManager.hyperland.setting = {
+  wayland.windowManager.hyprland.settings = {
     exec-once = [
       "waybar"
     ];
-  }
+  };
 }
