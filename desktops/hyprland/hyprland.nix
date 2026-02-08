@@ -94,7 +94,7 @@
 
       bind = [
         # Launch applications
-        "$mod, Q, exec, kitty"
+        "$mod, Q, exec, ghostty"
         "$mod, C, killactive,"
         "$mod, M, exit,"
         "$mod, E, exec, dolphin"
