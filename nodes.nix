@@ -36,7 +36,7 @@
     homeDir =  "/home/hoge";
     isNixos = true;
     extraModules = [
-      ./desktops/hyprland/hyprland.nix
+      ./desktops/hyprland/default.nix
     ];
   };
 }
