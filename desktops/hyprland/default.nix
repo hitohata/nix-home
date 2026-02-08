@@ -2,6 +2,7 @@
   imports = [
     ./waybar.nix
     ./hyprland.nix
-    ./wwofi.nix
+    ./wofi.nix
+    ./moko.nix
   ];
 }
