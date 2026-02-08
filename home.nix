@@ -18,6 +18,6 @@
     ./modules/bash/default.nix
     ./modules/packages/default.nix
     ./modules/ui/fonts.nix
-    ./modules/terminal/zellij.nix
+    ./modules/terminal/default.nix
   ];
 }
