@@ -17,7 +17,7 @@
     "wl-clipboard-history -t"
     
     # Wallpaper daemon and set random wallpaper
-    "swww-daemon && sleep 0.5 && random-wallpaper"
+    "swww-daemon && sleep 0.5 && $HOME/.local/bin/random-wallpaper"
     
     # Start waybar
     "sleep 1; waybar"
