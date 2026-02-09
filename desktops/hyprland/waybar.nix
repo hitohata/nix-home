@@ -26,13 +26,19 @@
           "clock"
         ];
         
+        "hyprland/workspaces" = {
+          format = "{name}";
+          on-click = "activate";
+          sort-by-number = true;
+        };
+        
         "keyboard-state" = {
           numlock = true;
           capslock = false;
           format = "{icon}{name}";
           format-icons = {
-            locked = " ";
-            unlocked = " ";
+            locked = "󰎠 ";
+            unlocked = "󰎡 ";
           };
         };
         
@@ -53,7 +59,7 @@
         
         temperature = {
           critical-threshold = 80;
-          format = " {temperatureC}°C {icon}";
+          format = "{temperatureC}°C {icon}";
           format-icons = ["" "" ""];
         };
         
@@ -65,18 +71,18 @@
           };
           format = "{capacity}% {icon}";
           format-full = "{capacity}% {icon}";
-          format-charging = "{capacity}% ";
-          format-plugged = "{capacity}% ";
+          format-charging = "{capacity}% 󰂄";
+          format-plugged = "{capacity}% 󰚥";
           format-alt = "{time} {icon}";
-          format-icons = ["" "" "" "" ""];
+          format-icons = ["󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
         };
         
         network = {
-          format-wifi = "{signalStrength}% ";
-          format-ethernet = "Connected ";
-          tooltip-format = "{ifname} via {gwaddr} ";
-          format-linked = "{ifname} (No IP) ";
-          format-disconnected = "Disconnected ⚠";
+          format-wifi = "{signalStrength}% 󰤨";
+          format-ethernet = "Connected 󰈀";
+          tooltip-format = "{ifname} via {gwaddr} 󰩟";
+          format-linked = "{ifname} (No IP) 󰈂";
+          format-disconnected = "Disconnected 󰤭";
           format-alt = "{ifname}: {ipaddr}/{cidr}";
           on-click-right = "nm-connection-editor";
         };
@@ -85,27 +91,27 @@
           on-click = "pavucontrol";
           format = "{volume}% {icon} {format_source}";
           format-bluetooth = "{volume}% {icon} {format_source}";
-          format-bluetooth-muted = " {icon} {format_source}";
-          format-muted = " {format_source}";
-          format-source = "{volume}% ";
-          format-source-muted = "";
+          format-bluetooth-muted = "󰝟 {icon} {format_source}";
+          format-muted = "󰝟 {format_source}";
+          format-source = "{volume}% 󰍬";
+          format-source-muted = "󰍭";
           format-icons = {
-            headphone = "";
-            hands-free = "";
-            headset = "";
-            phone = "";
-            portable = "";
-            car = "";
-            default = ["" "" ""];
+            headphone = "󰋋";
+            hands-free = "󰋎";
+            headset = "󰋎";
+            phone = "󰏲";
+            portable = "󰏲";
+            car = "󰄋";
+            default = ["󰕿" "󰖀" "󰕾"];
           };
         };
         
         bluetooth = {
-          format = "";
-          format-off = "";
-          format-on = "";
-          format-connected = " {device_alias}";
-          format-connected-battery = " {device_alias} {device_battery_percentage}%";
+          format = "󰂯";
+          format-off = "󰂲";
+          format-on = "󰂯";
+          format-connected = "󰂱 {device_alias}";
+          format-connected-battery = "󰂱 {device_alias} {device_battery_percentage}%";
           tooltip = true;
           tooltip-format = "Controller: {controller_alias}\nAddress: {controller_address}\nStatus: {status}";
           tooltip-format-connected = "Controller: {controller_alias}\nAddress: {controller_address}\nConnected: {device_alias} ({device_address})\nBattery: {device_battery_percentage}%";
@@ -116,14 +122,14 @@
           tooltip = false;
           format = "{} {icon}";
           format-icons = {
-            notification = "<span foreground='red'><sup></sup></span>";
-            none = "";
-            dnd-notification = "<span foreground='red'><sup></sup></span>";
-            dnd-none = "";
-            inhibited-notification = "<span foreground='red'><sup></sup></span>";
-            inhibited-none = "";
-            dnd-inhibited-notification = "<span foreground='red'><sup></sup></span>";
-            dnd-inhibited-none = "";
+            notification = "<span foreground='red'><sup>󰵙</sup></span>󰂚";
+            none = "󰂚";
+            dnd-notification = "<span foreground='red'><sup>󰵙</sup></span>󰂛";
+            dnd-none = "󰂛";
+            inhibited-notification = "<span foreground='red'><sup>󰵙</sup></span>󰂚";
+            inhibited-none = "󰂚";
+            dnd-inhibited-notification = "<span foreground='red'><sup>󰵙</sup></span>󰂛";
+            dnd-inhibited-none = "󰂛";
           };
           return-type = "json";
           exec-if = "which swaync-client";
@@ -139,8 +145,7 @@
         };
         
         "custom/menu" = {
-          format = "{icon} Menu";
-          format-icons = [""];
+          format = "󰀻 Menu";
           tooltip = "Open Menu";
           on-click = "wofi --show drun";
         };
