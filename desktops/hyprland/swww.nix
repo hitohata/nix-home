@@ -20,4 +20,9 @@
     executable = true;
     source = ./swww/random-wallpaper.sh;
   };
+
+  home.file.".local/bin/wallpaper-loop" = {
+    executable = true;
+    source = ./swww/wallpaper-loop.sh;
+  };
 }

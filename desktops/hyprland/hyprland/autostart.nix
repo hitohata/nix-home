@@ -19,8 +19,8 @@
     # Wallpaper daemon
     "swww-daemon"
     
-    # Set random wallpaper (with delay to ensure swww-daemon is ready)
-    "sleep 2 && $HOME/.local/bin/random-wallpaper"
+    # Start wallpaper loop (changes every 3 minutes)
+    "sleep 2 && $HOME/.local/bin/wallpaper-loop 180"
     
     # Start waybar
     "sleep 1; waybar"
