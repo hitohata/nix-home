@@ -1,15 +1,14 @@
-{ pkgs, config, lib, ... }: 
-let
-  nixHomeDir = "${config.home.homeDirectory}/nix-home";
-in
-{
+{ pkgs, config, lib, ... }: {
   home.packages = with pkgs; [
     swww
   ];
 
-  # Symlink wallpapers directory - use mkOutOfStoreSymlink for live updates
-  home.file."Pictures/wallpapers".source = 
-    config.lib.file.mkOutOfStoreSymlink "${nixHomeDir}/wallpapers";
+  # Copy wallpapers from repo to ~/Pictures/wallpapers (managed by Nix)
+  # Add/remove wallpapers in the repo's wallpapers/ dir, then rebuild
+  home.file."Pictures/wallpapers" = {
+    source = ../../wallpapers;
+    recursive = true;
+  };
 
   # Scripts for wallpaper management
   home.file.".local/bin/set-wallpaper" = {
