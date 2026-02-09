@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+export WAYLAND_DISPLAY="${WAYLAND_DISPLAY:-wayland-1}"
+
 WALLPAPER_DIR="${1:-$HOME/Pictures/wallpapers}"
 
 # Follow symlinks with -L

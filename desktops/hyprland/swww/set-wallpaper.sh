@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+export WAYLAND_DISPLAY="${WAYLAND_DISPLAY:-wayland-1}"
+
 WALLPAPER="$1"
 
 if [ -z "$WALLPAPER" ]; then
