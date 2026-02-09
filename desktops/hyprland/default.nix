@@ -5,5 +5,6 @@
     ./wofi.nix
     ./moko.nix
     ./wlogout.nix
+    ./swww.nix
   ];
 }
