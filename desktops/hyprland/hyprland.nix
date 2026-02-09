@@ -3,6 +3,15 @@
     enable = true;
     
     settings = {
+      # Environment variables
+      env = [
+        "XDG_CURRENT_DESKTOP,Hyprland"
+        "XDG_SESSION_TYPE,wayland"
+        "QT_QPA_PLATFORM,wayland"
+        "GDK_SCALE,1.0"
+        "QT_SCALE_FACTOR,1.0"
+      ];
+
       # Monitor configuration
       monitor = [
         "eDP-1,1920x1080@60,0x0,1"
@@ -24,18 +33,31 @@
         gaps_in = 5;
         gaps_out = 10;
         border_size = 2;
-        "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-        "col.inactive_border" = "rgba(595959aa)";
+        "col.active_border" = "rgba(957FB8FF) rgba(DCA561FF) 45deg";
+        "col.inactive_border" = "rgba(2A2A37AA)";
         layout = "dwindle";
+        allow_tearing = false;
+        resize_on_border = true;
       };
 
       # Decorations
       decoration = {
         rounding = 8;
+        active_opacity = 1.0;
+        inactive_opacity = 0.9;
+        fullscreen_opacity = 1.0;
+        dim_inactive = false;
+        dim_strength = 0.5;
+        
         blur = {
           enabled = true;
-          size = 3;
-          passes = 1;
+          size = 16;
+          passes = 2;
+          new_optimizations = true;
+          xray = false;
+          noise = 0.0117;
+          contrast = 0.8916;
+          brightness = 0.8172;
         };
 
         shadow = {
@@ -49,14 +71,18 @@
       # Animations
       animations = {
         enabled = true;
-        bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
+        bezier = [
+          "myBezier, 0.05, 0.9, 0.1, 1.05"
+          "easeOutCirc, 0, 0.55, 0.45, 1"
+          "easeInOutCubic, 0.65, 0, 0.35, 1"
+        ];
         animation = [
-          "windows, 1, 7, myBezier"
+          "windows, 1, 7, myBezier, slide"
           "windowsOut, 1, 7, default, popin 80%"
           "border, 1, 10, default"
           "borderangle, 1, 8, default"
           "fade, 1, 7, default"
-          "workspaces, 1, 6, default"
+          "workspaces, 1, 6, easeOutCirc, slide"
         ];
       };
 
@@ -87,76 +113,118 @@
       # Misc settings
       misc = {
         force_default_wallpaper = 0;
+        disable_hyprland_logo = true;
+        disable_splash_rendering = true;
+        mouse_move_enables_dpms = true;
+        key_press_enables_dpms = true;
+        vrr = 0;
       };
 
       # Key bindings
-      "$mod" = "SUPER";
+      "$mainMod" = "SUPER";
 
       bind = [
-        # Launch applications
-        "$mod, Q, exec, ghostty"
-        "$mod, C, killactive,"
-        "$mod, M, exit,"
-        "$mod, E, exec, dolphin"
-        "$mod, V, togglefloating,"
-        "$mod, R, exec, wofi --show drun"
-        "$mod, P, pseudo,"
-        "$mod, J, togglesplit,"
+        # Core functionality
+        "$mainMod, Return, exec, ghostty"
+        "$mainMod, D, exec, rofi -show drun"
+        "$mainMod, Q, killactive"
+        "$mainMod SHIFT, Q, exec, hyprctl dispatch exit"
+        
+        # Window management
+        "$mainMod, F, fullscreen, 0"
+        "$mainMod, T, togglefloating"
+        "$mainMod, J, togglesplit"
+        "$mainMod, P, pseudo"
+        
+        # Screenshots
+        "$mainMod, S, exec, flameshot full -c"
+        "$mainMod SHIFT, S, exec, flameshot gui"
+        
+        # Move focus with keyboard
+        "$mainMod, left, movefocus, l"
+        "$mainMod, right, movefocus, r"
+        "$mainMod, up, movefocus, u"
+        "$mainMod, down, movefocus, d"
+        "$mainMod, h, movefocus, l"
+        "$mainMod, l, movefocus, r"
+        "$mainMod, k, movefocus, u"
+        "$mainMod, j, movefocus, d"
 
-        # Move focus
-        "$mod, left, movefocus, l"
-        "$mod, right, movefocus, r"
-        "$mod, up, movefocus, u"
-        "$mod, down, movefocus, d"
-        "$mod, h, movefocus, l"
-        "$mod, l, movefocus, r"
-        "$mod, k, movefocus, u"
-        "$mod, j, movefocus, d"
+        # Resize windows
+        "$mainMod SHIFT, right, resizeactive, 100 0"
+        "$mainMod SHIFT, left, resizeactive, -100 0"
+        "$mainMod SHIFT, down, resizeactive, 0 100"
+        "$mainMod SHIFT, up, resizeactive, 0 -100"
 
         # Switch workspaces
-        "$mod, 1, workspace, 1"
-        "$mod, 2, workspace, 2"
-        "$mod, 3, workspace, 3"
-        "$mod, 4, workspace, 4"
-        "$mod, 5, workspace, 5"
-        "$mod, 6, workspace, 6"
-        "$mod, 7, workspace, 7"
-        "$mod, 8, workspace, 8"
-        "$mod, 9, workspace, 9"
-        "$mod, 0, workspace, 10"
+        "$mainMod, 1, workspace, 1"
+        "$mainMod, 2, workspace, 2"
+        "$mainMod, 3, workspace, 3"
+        "$mainMod, 4, workspace, 4"
+        "$mainMod, 5, workspace, 5"
+        "$mainMod, 6, workspace, 6"
+        "$mainMod, 7, workspace, 7"
+        "$mainMod, 8, workspace, 8"
+        "$mainMod, 9, workspace, 9"
+        "$mainMod, 0, workspace, 10"
 
         # Move active window to workspace
-        "$mod SHIFT, 1, movetoworkspace, 1"
-        "$mod SHIFT, 2, movetoworkspace, 2"
-        "$mod SHIFT, 3, movetoworkspace, 3"
-        "$mod SHIFT, 4, movetoworkspace, 4"
-        "$mod SHIFT, 5, movetoworkspace, 5"
-        "$mod SHIFT, 6, movetoworkspace, 6"
-        "$mod SHIFT, 7, movetoworkspace, 7"
-        "$mod SHIFT, 8, movetoworkspace, 8"
-        "$mod SHIFT, 9, movetoworkspace, 9"
-        "$mod SHIFT, 0, movetoworkspace, 10"
+        "$mainMod SHIFT, 1, movetoworkspace, 1"
+        "$mainMod SHIFT, 2, movetoworkspace, 2"
+        "$mainMod SHIFT, 3, movetoworkspace, 3"
+        "$mainMod SHIFT, 4, movetoworkspace, 4"
+        "$mainMod SHIFT, 5, movetoworkspace, 5"
+        "$mainMod SHIFT, 6, movetoworkspace, 6"
+        "$mainMod SHIFT, 7, movetoworkspace, 7"
+        "$mainMod SHIFT, 8, movetoworkspace, 8"
+        "$mainMod SHIFT, 9, movetoworkspace, 9"
+        "$mainMod SHIFT, 10, movetoworkspace, 10"
 
         # Scroll through workspaces
-        "$mod, mouse_down, workspace, e+1"
-        "$mod, mouse_up, workspace, e-1"
+        "$mainMod, mouse_down, workspace, e+1"
+        "$mainMod, mouse_up, workspace, e-1"
 
         # Special workspace (scratchpad)
-        "$mod, S, togglespecialworkspace, magic"
-        "$mod SHIFT, S, movetoworkspace, special:magic"
+        "$mainMod, grave, togglespecialworkspace, magic"
+        "$mainMod SHIFT, grave, movetoworkspace, special:magic"
+      ];
+
+      # Brightness control
+      bindl = [
+        ", XF86MonBrightnessUp, exec, brightnessctl -q s +10%"
+        ", XF86MonBrightnessDown, exec, brightnessctl -q s 10%-"
+      ];
+
+      # Audio control
+      bindle = [
+        ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 2%+"
+        ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-"
+      ];
+
+      # Media keys
+      bindl = [
+        ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+        ", XF86AudioPlay, exec, playerctl play-pause"
+        ", XF86AudioPause, exec, playerctl pause"
+        ", XF86AudioPrev, exec, playerctl previous"
+        ", XF86AudioNext, exec, playerctl next"
       ];
 
       # Mouse bindings
       bindm = [
-        "$mod, mouse:272, movewindow"
-        "$mod, mouse:273, resizewindow"
+        "$mainMod, mouse:272, movewindow"
+        "$mainMod, mouse:273, resizewindow"
       ];
 
       # Window rules
       windowrulev2 = [
         "float, class:^(pavucontrol)$"
         "float, class:^(nm-connection-editor)$"
+        "float, class:^(blueman-manager)$"
+        "float, title:^(Picture-in-Picture)$"
         "suppressevent maximize, class:.*"
+        "opacity 0.90 0.90,class:^(Alacritty)$"
+        "opacity 0.90 0.90,class:^(ghostty)$"
       ];
     };
   };
