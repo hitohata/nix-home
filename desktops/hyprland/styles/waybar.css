@@ -1,0 +1,100 @@
+@define-color primary #96d8ff;
+@define-color background rgba(21, 18, 27, 0.8);
+
+/* All Modules */
+* {
+  font-family: "JetBrainsMono Nerd Font";
+  font-weight: bold;
+  font-size: 15px;
+  background: rgba(21, 18, 27, 0);
+}
+
+window#waybar {
+  color: @primary;
+}
+
+tooltip {
+  background: @background;
+  border-radius: 10px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: #11111b;
+}
+
+/* Workspaces */
+#workspaces button {
+  color: #313244;
+}
+
+#workspaces button.active {
+  color: @primary;
+}
+
+#workspaces button.urgent {
+  color: #11111b;
+  background: #a6e3a1;
+  border-radius: 10px;
+}
+
+#workspaces button:hover {
+  background: #010116;
+  color: #cdd6f4;
+  border-color: @primary;
+  border-radius: 10px;
+}
+
+/* Bar modules */
+#window,
+#workspaces,
+#submap,
+#pulseaudio,
+#battery,
+#bluetooth,
+#network,
+#temperature,
+#keyboard-state,
+#clock,
+#tray,
+#custom-weather,
+#custom-notification,
+#custom-power,
+#custom-menu {
+  background: @background;
+  font-family: "JetBrainsMono Nerd Font";
+  opacity: 1.0;
+  padding: 0px 10px;
+  margin: 0px 0px;
+  margin-top: 5px;
+  border: 0.5px solid @primary;
+  border-radius: 10px;
+}
+
+/* Individual modules */
+#submap {
+  background-color: rgba(10, 10, 10, 0.8);
+  color: rgba(152, 239, 106, 1);
+}
+
+#battery {
+  color: #a8ff96;
+  padding-right: 15px;
+}
+
+#temperature.critical {
+  color: #ff5874;
+}
+
+#clock {
+  margin-right: 5px;
+}
+
+#custom-notification {
+  font-family: "NotoSansMono Nerd Font";
+  font-size: 16px;
+  padding-right: 15px;
+}
+
+#custom-power {
+  margin-left: 5px;
+  padding-left: 5px;
+}
