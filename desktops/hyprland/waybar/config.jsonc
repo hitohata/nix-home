@@ -1,0 +1,152 @@
+{
+  "layer": "top",
+  "spacing": 10,
+  "modules-left": [
+    "custom/power",
+    "custom/menu",
+    "tray",
+    "hyprland/workspaces",
+    "hyprland/submap"
+  ],
+  "modules-right": [
+    "pulseaudio",
+    "network",
+    "power-profiles-daemon",
+    "temperature",
+    "keyboard-state",
+    "battery",
+    "bluetooth",
+    "custom/notification",
+    "clock"
+  ],
+
+  "keyboard-state": {
+    "numlock": true,
+    "capslock": false,
+    "format": "{icon} {name}",
+    "format-icons": {
+      "locked": "󰎠",
+      "unlocked": "󰎡"
+    }
+  },
+
+  "hyprland/submap": {
+    "format": "<span style=\"italic\">{}</span>"
+  },
+
+  "tray": {
+    "icon-size": 21,
+    "spacing": 5,
+    "show-passive-items": true
+  },
+
+  "clock": {
+    "format": "󰥔 {:%a %d %b %Y | %H:%M}",
+    "tooltip-format": "<big><tt><small>{calendar}</small></tt></big>"
+  },
+
+  "temperature": {
+    "critical-threshold": 80,
+    "format": "{temperatureC}°C {icon}",
+    "format-icons": ["󱃃", "󰔏", "󱃂"]
+  },
+
+  "battery": {
+    "states": {
+      "good": 80,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{capacity}% {icon}",
+    "format-full": "{capacity}% {icon}",
+    "format-charging": "{capacity}% 󰂄",
+    "format-plugged": "{capacity}% 󰚥",
+    "format-alt": "{time} {icon}",
+    "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+  },
+
+  "power-profiles-daemon": {
+    "format": "{icon}",
+    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+    "tooltip": true,
+    "format-icons": {
+      "default": "󰗑",
+      "performance": "󰓅 Max",
+      "balanced": "󰾅 Mid",
+      "power-saver": "󰾆 Low"
+    }
+  },
+
+  "network": {
+    "format-wifi": "{signalStrength}% 󰖩",
+    "format-ethernet": "Connected 󰈀",
+    "tooltip-format": "{ifname} via {gwaddr} 󰛳",
+    "format-linked": "{ifname} (No IP) 󰈂",
+    "format-disconnected": "Disconnected 󰖪",
+    "format-alt": "{ifname}: {ipaddr}/{cidr}",
+    "on-click-right": "nm-connection-editor"
+  },
+
+  "pulseaudio": {
+    "on-click": "pavucontrol",
+    "format": "{volume}% {icon} {format_source}",
+    "format-bluetooth": "{volume}% {icon} {format_source}",
+    "format-bluetooth-muted": "󰝟 {icon} {format_source}",
+    "format-muted": "󰝟 {format_source}",
+    "format-source": "{volume}% 󰍬",
+    "format-source-muted": "󰍭",
+    "format-icons": {
+      "headphone": "󰋋",
+      "hands-free": "󰋎",
+      "headset": "󰋎",
+      "phone": "󰏲",
+      "portable": "󰏲",
+      "car": "󰄋",
+      "default": ["󰕿", "󰖀", "󰕾"]
+    }
+  },
+
+  "bluetooth": {
+    "format": "󰂯",
+    "format-off": "󰂲",
+    "format-on": "󰂯",
+    "format-connected": "󰂱 {device_alias}",
+    "format-connected-battery": "󰂱 {device_alias} {device_battery_percentage}%",
+    "tooltip": true,
+    "tooltip-format": "Controller: {controller_alias}\nAddress: {controller_address}\nStatus: {status}",
+    "tooltip-format-connected": "Controller: {controller_alias}\nAddress: {controller_address}\nConnected: {device_alias} ({device_address})\nBattery: {device_battery_percentage}%",
+    "on-click": "blueman-manager"
+  },
+
+  "custom/notification": {
+    "tooltip": false,
+    "format": "{} {icon}",
+    "format-icons": {
+      "notification": "<span foreground='red'><sup>󰵙</sup></span>",
+      "none": "󰂚",
+      "dnd-notification": "<span foreground='red'><sup>󰵙</sup></span>",
+      "dnd-none": "󰂛",
+      "inhibited-notification": "<span foreground='red'><sup>󰵙</sup></span>",
+      "inhibited-none": "󰂚",
+      "dnd-inhibited-notification": "<span foreground='red'><sup>󰵙</sup></span>",
+      "dnd-inhibited-none": "󰂛"
+    },
+    "return-type": "json",
+    "exec-if": "which swaync-client",
+    "exec": "swaync-client -swb",
+    "on-click": "sleep 0.1 && swaync-client -t -sw",
+    "on-click-right": "sleep 0.1 && swaync-client -d -sw",
+    "escape": true
+  },
+
+  "custom/power": {
+    "format": "󰐥",
+    "on-click": "wlogout --protocol layer-shell"
+  },
+
+  "custom/menu": {
+    "format": "󰀻 Menu",
+    "tooltip": "Open Menu",
+    "on-click": "wofi --show drun"
+  }
+}

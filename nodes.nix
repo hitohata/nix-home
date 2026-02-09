@@ -35,6 +35,8 @@
     username = "hoge";
     homeDir =  "/home/hoge";
     isNixos = true;
-    extraModules = [];
+    extraModules = [
+      ./desktops/hyprland/default.nix
+    ];
   };
 }
