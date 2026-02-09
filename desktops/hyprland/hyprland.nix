@@ -219,8 +219,8 @@
         "float, class:^(blueman-manager)$"
         "float, title:^(Picture-in-Picture)$"
         "suppressevent maximize, class:.*"
-        "opacity 0.90 0.90,class:^(Alacritty)$"
-        "opacity 0.90 0.90,class:^(ghostty)$"
+        "opacity 0.80 0.80,class:^(Alacritty)$"
+        "opacity 0.80 0.80,class:^(ghostty)$"
       ];
     };
   };
