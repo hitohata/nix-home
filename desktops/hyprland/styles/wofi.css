@@ -13,12 +13,12 @@ window {
     color: #cdd6f4;
     font-weight: bold;
     background-color: #1e1e2e;
-    outline: none;
+    /* background: ; */
+   	outline: none;
     border-radius: 20px;
     margin: 10px 13px;
     margin-bottom: 2px;
 }
-
 #input:focus {
     border: 0px solid #1e1e2e;
     margin-bottom: 0px;
@@ -30,6 +30,7 @@ window {
     color: #cdd6f4;
     font-weight: bold;
     background-color: #242446;
+    /* background-color: red; */
     border-radius: 20px;
 }
 
@@ -47,7 +48,7 @@ window {
     margin-bottom: 5px;
 }
 
-#img {
+#img{
     margin-right: 10px;
 }
 
@@ -58,6 +59,7 @@ window {
 }
 
 #text:selected {
+    color: #cdd6f4;
     color: black;
     margin: 0px 0px;
     border: none;

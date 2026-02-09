@@ -12,7 +12,7 @@
 
   group = {
     "col.border_active" = "rgba(a591ffdd) rgba(91f8ffaa) 70deg";
-    "col.inactive_border" = "rgba(404040aa)";
+    "col.border_inactive" = "rgba(404040aa)";
     
     groupbar = {
       font_size = 14;

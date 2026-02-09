@@ -1,27 +1,6 @@
 { pkgs, ... }: {
   home.packages = [ pkgs.wofi ];
-  
-  programs.rofi = {
-    enable = true;
-    package = pkgs.rofi;
-    terminal = "${pkgs.alacritty}/bin/alacritty";
-    extraConfig = {
-      modi = "run,drun,window";
-      font = "JetBrains Mono Nerd Font 14";
-      show-icons = true;
-      icon-theme = "Papirus-Dark";
-      drun-display-format = "{icon} {name}";
-      location = 0;
-      disable-history = false;
-      hide-scrollbar = false;
-      display-drun = " Apps";
-      display-run = " Run";
-      display-window = " Window";
-      sidebar-mode = true;
-    };
-  };
 
-  # Fallback wofi config
   programs.wofi = {
     enable = true;
     settings = {

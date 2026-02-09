@@ -11,18 +11,10 @@
     sensitivity = 0.0;
     accel_profile = "flat";
     force_no_accel = true;
+    scroll_factor = 0.5;
 
     touchpad = {
       natural_scroll = false;
     };
-  };
-
-  gestures = {
-    workspace_swipe_fingers = 3;
-    workspace_swipe_distance = 300;
-    workspace_swipe_touch = false;
-    workspace_swipe_cancel_ratio = 0.5;
-    workspace_swipe_min_speed_to_force = 30;
-    workspace_swipe_create_new = true;
   };
 }

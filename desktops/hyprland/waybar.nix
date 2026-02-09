@@ -18,6 +18,7 @@
         modules-right = [
           "pulseaudio"
           "network"
+          "power-profiles-daemon"
           "temperature"
           "keyboard-state"
           "battery"
@@ -75,6 +76,18 @@
           format-plugged = "{capacity}% 󰚥";
           format-alt = "{time} {icon}";
           format-icons = ["󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
+        };
+        
+        "power-profiles-daemon" = {
+          format = "{icon}";
+          tooltip-format = "Power profile: {profile}\nDriver: {driver}";
+          tooltip = true;
+          format-icons = {
+            default = "󰗑";
+            performance = "󰓅 Max";
+            balanced = "󰾅 Mid";
+            power-saver = "󰾆 Low";
+          };
         };
         
         network = {
