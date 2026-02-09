@@ -1,11 +1,10 @@
 { pkgs, ... }: {
-  home.packages = [ pkgs.wofi pkgs.rofi-wayland ];
+  home.packages = [ pkgs.wofi ];
   
   programs.rofi = {
     enable = true;
-    package = pkgs.rofi-wayland;
+    package = pkgs.rofi;
     terminal = "${pkgs.alacritty}/bin/alacritty";
-    theme = "~/.config/rofi/theme.rasi";
     extraConfig = {
       modi = "run,drun,window";
       font = "JetBrains Mono Nerd Font 14";
