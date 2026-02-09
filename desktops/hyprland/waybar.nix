@@ -36,7 +36,7 @@
           on-click = "activate";
           active-only = false;
           all-outputs = true;
-          format = "{}";
+          format = "{icon}";
           format-icons = {
             urgent = "";
             active = "";
@@ -49,25 +49,29 @@
 
         # System modules
         memory = {
-          format = " {: >3}%";
+          format = "󰍛 {}%";
+          tooltip-format = "RAM: {used:0.1f}GB / {total:0.1f}GB";
         };
 
         cpu = {
-          format = "󰘚 {usage: >3}%";
+          format = "󰻠 {usage}%";
+          tooltip-format = "CPU: {usage}%";
         };
 
         temperature = {
           hwmon-path = "/sys/class/hwmon/hwmon1/temp1_input";
           critical-threshold = 80;
-          format = "  {temperatureC}°C";
+          format = "{icon} {temperatureC}°C";
+          format-icons = ["󰔐" "󱃃" "󰸁" "󱃂" "󰸂"];
+          tooltip-format = "Temperature: {temperatureC}°C";
         };
 
         # Idle inhibitor
         idle_inhibitor = {
           format = "{icon}";
           format-icons = {
-            activated = "󰌾";
-            deactivated = "󰌵";
+            activated = "󰅶";
+            deactivated = "󰾪";
           };
           tooltip-format-activated = "Idle inhibitor: ON";
           tooltip-format-deactivated = "Idle inhibitor: OFF";
@@ -79,52 +83,58 @@
             warning = 30;
             critical = 15;
           };
-          format = "{icon} {capacity: >3}%";
-          format-icons = ["" "" "" "" ""];
+          format = "{icon} {capacity}%";
+          format-charging = "󰂄 {capacity}%";
+          format-plugged = "󰚥 {capacity}%";
+          format-icons = ["󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
+          tooltip-format = "Battery: {capacity}%\n{timeTo}";
         };
 
         backlight = {
-          format = "{icon} {percent: >3}%";
-          format-icons = ["" ""];
+          format = "{icon} {percent}%";
+          format-icons = ["󰃞" "󰃟" "󰃠"];
           on-scroll-down = "brightnessctl set 5%-";
           on-scroll-up = "brightnessctl set +5%";
+          tooltip-format = "Brightness: {percent}%";
         };
 
         pulseaudio = {
           scroll-step = 1;
-          format = "{icon} {volume: >3}%";
-          format-bluetooth = "{icon} {volume: >3}%";
-          format-muted = " muted";
+          format = "{icon} {volume}%";
+          format-bluetooth = "󰂰 {volume}%";
+          format-muted = "󰖁 muted";
           format-icons = {
-            headphones = "";
-            handsfree = "";
-            headset = "";
-            phone = "";
-            portable = "";
-            car = "";
-            default = ["" ""];
+            headphone = "󰋋";
+            hands-free = "󱡏";
+            headset = "󰋎";
+            phone = "󰏲";
+            portable = "󰦧";
+            car = "󰄋";
+            default = ["󰕿" "󰖀" "󰕾"];
           };
           on-click = "pavucontrol";
           on-scroll-up = "pamixer -ui 2";
           on-scroll-down = "pamixer -ud 2";
+          tooltip-format = "Volume: {volume}%";
         };
 
         network = {
           format = "{ifname}";
-          format-wifi = " {essid} ({signalStrength}%)";
-          format-ethernet = "  {ifname}";
-          format-disconnected = "Disconnected ⚠";
-          tooltip-format = " {ifname} via {gwaddri}";
-          tooltip-format-wifi = "  {ifname} @ {essid}\nIP: {ipaddr}\nStrength: {signalStrength}%\nFreq: {frequency}MHz";
-          tooltip-format-ethernet = " {ifname}\nIP: {ipaddr}";
-          tooltip-format-disconnected = "Disconnected";
+          format-wifi = "󰖩 {essid} ({signalStrength}%)";
+          format-ethernet = "󰈀 {ifname}";
+          format-disconnected = "󰖪 Disconnected";
+          tooltip-format = "󰈀 {ifname} via {gwaddri}";
+          tooltip-format-wifi = "󰖩 {ifname} @ {essid}\nIP: {ipaddr}\nStrength: {signalStrength}%\nFreq: {frequency}MHz";
+          tooltip-format-ethernet = "󰈀 {ifname}\nIP: {ipaddr}";
+          tooltip-format-disconnected = "󰖪 Disconnected";
           max-length = 50;
-          on-click = "nm-connection-editor";
+          on-click = "notify-send 'Network Info' \"Interface: {ifname}\nIP Address: {ipaddr}\nGateway: {gwaddr}\" -t 5000";
+          on-click-right = "nm-connection-editor";
         };
 
         clock = {
-          format = "  {:%H:%M %a}";
-          format-alt = "  {:%d/%m/%Y  %H:%M:%S}";
+          format = "󰥔 {:%H:%M}";
+          format-alt = "󰃭 {:%d/%m/%Y  %H:%M:%S}";
           tooltip-format = "<tt><small>{calendar}</small></tt>";
           calendar = {
             mode = "month";
@@ -145,15 +155,20 @@
 
         mpris = {
           format = "{player_icon} {dynamic}";
-          format-paused = "<span color='grey'>{status_icon} {dynamic}</span>";
+          format-paused = "{status_icon} <i>{dynamic}</i>";
           max-length = 50;
           player-icons = {
-            default = "⏸";
-            mpv = "🎵";
+            default = "󰝚";
+            mpv = "󰐹";
+            spotify = "󰓇";
+            firefox = "󰈹";
           };
           status-icons = {
-            paused = "▶";
+            paused = "󰏤";
+            playing = "󰐊";
+            stopped = "󰓛";
           };
+          tooltip-format = "{player}: {dynamic}";
         };
 
         tray = {
