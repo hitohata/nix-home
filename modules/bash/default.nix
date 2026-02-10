@@ -43,7 +43,7 @@ in
       gits = "git status";
       gat = "git add";
       gcomet = "git commit -m";
-      gutpr = "git push origin HEAD && gh pr crate -w";
+      gutpr = "git push origin HEAD && gh pr create -w";
       gut = "git push";
       gl = "git pull";
       gd = "git diff";
