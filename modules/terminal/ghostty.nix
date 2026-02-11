@@ -2,9 +2,9 @@
   programs.ghostty = {
     enable = true;
     settings = {
-      background-opacity = 0.9;
+      background-opacity = 0.85;
       background-image = "${config.home.homeDirectory}/Pictures/wallpapers/.gitkeep";
-      background-image-opacity = 0.2;
+      background-image-opacity = 0.1;
       background-image-fit = "cover";
     };
   };
