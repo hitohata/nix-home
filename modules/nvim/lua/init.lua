@@ -27,6 +27,9 @@ vim.opt.showmode = false -- Shown by lualine instead
 -- Spell checking
 vim.opt.spell = true
 vim.opt.spelllang = "en_us"
+vim.opt.spelloptions:append("camel")
+vim.api.nvim_set_hl(0, "SpellBad", { undercurl = false, underline = true, sp = '#777777' }) -- undercurl to underline
+
 
 -- OSC 52 clipboard support (for remote/container environments)
 vim.g.clipboard = {
@@ -99,3 +102,10 @@ vim.keymap.set("n", "<leader>nc", function()
 	vim.fn.setreg("+", messages)
 	vim.notify("Messages copied to clipboard!", vim.log.levels.INFO)
 end, { desc = "Copy messages to clipboard" })
+
+-- show error detail when the cursor is hovering
+vim.api.nvim_create_autocmd("CursorHold", {
+  callback = function()
+    vim.diagnostic.open_float(nil, { focusable = false })
+  end,
+})
