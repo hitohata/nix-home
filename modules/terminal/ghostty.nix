@@ -8,4 +8,7 @@
       background-image-fit = "cover";
     };
   };
+
+  # Force overwrite existing config
+  xdg.configFile."ghostty/config".force = true;
 }
