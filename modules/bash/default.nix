@@ -5,6 +5,7 @@ let
   functionsScript = builtins.readFile ./scripts/functions.sh;
   profileScript = builtins.readFile ./scripts/profile.sh;
   apply = builtins.readFile ./scripts/apply.sh;
+  terminalBackground = builtins.readFile ./scripts/terminal-background.sh;
 in
 {
   imports = [
@@ -79,6 +80,9 @@ in
       ${initScript}
       ${functionsScript}
       ${apply}
+      
+      # Set random terminal background
+      ${terminalBackground}
     '';
 
     # Extra content for .profile (login shell)
