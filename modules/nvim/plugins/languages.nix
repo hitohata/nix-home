@@ -32,7 +32,7 @@
     config = ''
       require("zen-mode").setup {
         window = {
-          width = 0.85,
+          backdrop = 0.85,
           options = {
             number = false,
             relativenumber = false,
