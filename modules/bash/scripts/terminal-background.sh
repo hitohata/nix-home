@@ -1,5 +1,5 @@
 # Set random terminal background image from wallpapers
-# Called when a new bash terminal is opened
+# Changes background periodically
 
 _set_terminal_background() {
   local IMG_DIR="$HOME/Pictures/wallpapers"
@@ -23,4 +23,22 @@ _set_terminal_background() {
   fi
 }
 
-_set_terminal_background
+# Start background loop if not already running
+_start_terminal_background_loop() {
+  local LOCK_FILE="/tmp/terminal-background-loop-$$.lock"
+  local INTERVAL=300  # 5 minutes
+  
+  # Set initial background
+  _set_terminal_background
+  
+  # Run loop in background
+  (
+    while true; do
+      sleep "$INTERVAL"
+      _set_terminal_background
+    done
+  ) &>/dev/null &
+  disown
+}
+
+_start_terminal_background_loop
