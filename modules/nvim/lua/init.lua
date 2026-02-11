@@ -24,6 +24,12 @@ vim.opt.updatetime = 250
 vim.opt.timeoutlen = 300
 vim.opt.showmode = false -- Shown by lualine instead
 
+-- Transparent background
+vim.api.nvim_set_hl(0, "Normal", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "SignColumn", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "EndOfBuffer", { bg = "NONE" })
+
 -- Spell checking
 vim.opt.spell = true
 vim.opt.spelllang = "en_us"
