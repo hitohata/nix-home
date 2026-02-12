@@ -18,6 +18,12 @@ in
     bash-completion
   ];
 
+  # Wallpapers directory (shared across all configs for Ghostty background)
+  home.file."Pictures/wallpapers" = {
+    source = ../../wallpapers;
+    recursive = true;
+  };
+
   programs.bash = {
     enable = true;
     enableCompletion = true;
