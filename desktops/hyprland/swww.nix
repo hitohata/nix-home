@@ -3,13 +3,6 @@
     swww
   ];
 
-  # Copy wallpapers from repo to ~/Pictures/wallpapers (managed by Nix)
-  # Add/remove wallpapers in the repo's wallpapers/ dir, then rebuild
-  home.file."Pictures/wallpapers" = {
-    source = ../../wallpapers;
-    recursive = true;
-  };
-
   # Scripts for wallpaper management
   home.file.".local/bin/set-wallpaper" = {
     executable = true;
