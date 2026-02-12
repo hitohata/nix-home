@@ -33,7 +33,7 @@
     system = "aarch64-linux";
     hostname = "aarch64";
     username = "hoge";
-    homeDir =  "/hoge";
+    homeDir =  "/home/hoge";
     isNixos = false;
     extraModules = [];
   };
