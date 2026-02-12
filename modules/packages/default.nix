@@ -33,6 +33,10 @@
     # Development tools
     gnumake
     cmake
+
+    # dot dir
+    direnv
+    nix-direnv
   ];
 }
 
