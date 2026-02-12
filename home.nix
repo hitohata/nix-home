@@ -12,6 +12,13 @@
     SHELL = "${pkgs.bash}/bin/bash";
   };
 
+  nix = {
+    package = pkgs.nix;
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+    };
+  };
+
   # Module imports
   imports = [
     ./modules/nvim/default.nix
