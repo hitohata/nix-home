@@ -94,5 +94,10 @@ in
     # Extra content for .profile (login shell)
     profileExtra = profileScript;
   };
+
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
+  };
 }
 
