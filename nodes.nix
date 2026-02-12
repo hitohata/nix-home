@@ -29,6 +29,15 @@
     extraModules = [];
   };
 
+  "user@aarch64" = {
+    system = "aarch64-linux";
+    hostname = "aarch64";
+    username = "hoge";
+    homeDir =  "/hoge";
+    isNixos = false;
+    extraModules = [];
+  };
+
   "user@n100" = {
     system = "x86_64-linux";
     hostname = "n100";
