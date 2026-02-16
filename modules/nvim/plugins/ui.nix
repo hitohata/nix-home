@@ -2,6 +2,30 @@
   # Icons (required by many plugins)
   nvim-web-devicons
 
+  # Code outline / navigation (aerial)
+  {
+    plugin = aerial-nvim;
+    type = "lua";
+    config = ''
+      require("aerial").setup {
+        backends = { "treesitter", "lsp", "markdown", "man" },
+        layout = {
+          max_width = { 40, 0.2 },
+          width = nil,
+          min_width = 10,
+          default_direction = "prefer_right",
+        },
+        attach_mode = "global",
+        show_guides = true,
+        on_attach = function(bufnr)
+          vim.keymap.set("n", "{", "<cmd>AerialPrev<cr>", { buffer = bufnr, desc = "Previous symbol" })
+          vim.keymap.set("n", "}", "<cmd>AerialNext<cr>", { buffer = bufnr, desc = "Next symbol" })
+        end,
+      }
+      vim.keymap.set("n", "<leader>a", "<cmd>AerialToggle!<cr>", { desc = "Toggle Aerial" })
+    '';
+  }
+
   # Terminal
   {
     plugin = toggleterm-nvim;

@@ -4,6 +4,7 @@
 - [File Navigation](#file-navigation)
 - [Buffer Management](#buffer-management)
 - [Window Management](#window-management)
+- [Code Outline (Aerial)](#code-outline-aerial)
 - [LSP (Language Server)](#lsp-language-server)
 - [Code Completion](#code-completion)
 - [GitHub Copilot](#github-copilot)
@@ -12,6 +13,7 @@
 - [File Explorer](#file-explorer)
 - [Search and Navigation](#search-and-navigation)
 - [Editing](#editing)
+- [Copy Path](#copy-path)
 - [Markdown](#markdown)
 - [Notifications and Messages](#notifications-and-messages)
 - [Spell Checking](#spell-checking)
@@ -57,6 +59,28 @@
 | `<C-Left>` | Decrease window width |
 | `<C-Right>` | Increase window width |
 
+## Code Outline (Aerial)
+
+Aerial provides a code outline window for skimming and quick navigation through symbols (functions, classes, variables, etc.).
+
+| Keybinding | Description |
+|------------|-------------|
+| `<leader>a` | Toggle Aerial (code outline) |
+| `{` | Jump to previous symbol |
+| `}` | Jump to next symbol |
+
+### Inside Aerial Window
+| Keybinding | Description |
+|------------|-------------|
+| `<CR>` | Jump to symbol |
+| `p` | Scroll to symbol (preview) |
+| `<C-v>` | Jump to symbol in vsplit |
+| `<C-s>` | Jump to symbol in split |
+| `q` | Close Aerial |
+| `o` / `za` | Toggle tree node |
+| `l` / `zo` | Open tree node |
+| `h` / `zc` | Close tree node |
+
 ## LSP (Language Server)
 
 | Keybinding | Description |
@@ -66,7 +90,7 @@
 | `gi` | Go to implementation |
 | `gr` | Show references |
 | `K` | Hover documentation |
-| `<C-k>` | Signature help |
+| `<C-i>` | Signature help |
 | `<leader>rn` | Rename symbol |
 | `<leader>ca` | Code action |
 | `<leader>f` | Format code |
@@ -145,6 +169,14 @@
 | `J` | Move selected line(s) down |
 | `K` | Move selected line(s) up |
 
+## Copy Path
+
+| Keybinding | Description |
+|------------|-------------|
+| `<leader>cp` | Copy absolute path to clipboard |
+| `<leader>cr` | Copy relative path to clipboard |
+| `<leader>cf` | Copy filename to clipboard |
+
 ## Markdown
 
 | Keybinding | Description |
@@ -195,6 +227,8 @@ Neovim commands are executed in normal mode by typing `:` followed by the comman
 | `:Telescope live_grep` | Search text in files |
 | `:NvimTreeToggle` | Toggle file explorer |
 | `:ToggleTerm` | Toggle terminal window |
+| `:AerialToggle` | Toggle code outline |
+| `:AerialInfo` | Show Aerial debug info |
 
 ### Built-in Commands
 
