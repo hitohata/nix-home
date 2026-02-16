@@ -25,3 +25,39 @@ extract() {
   fi
 }
 
+# Copy command output to clipboard
+# Usage: ls | cocp
+cocp() {
+  if [ -t 0 ]; then
+    echo "Usage: <command> | cocp"
+    echo "Example: ls | cocp"
+    return 1
+  fi
+  
+  local input
+  input=$(cat)
+  
+  # Try different clipboard commands based on availability
+  if command -v wl-copy &> /dev/null; then
+    # Wayland
+    echo -n "$input" | wl-copy
+  elif command -v xclip &> /dev/null; then
+    # X11 with xclip
+    echo -n "$input" | xclip -selection clipboard
+  elif command -v xsel &> /dev/null; then
+    # X11 with xsel
+    echo -n "$input" | xsel --clipboard --input
+  elif command -v pbcopy &> /dev/null; then
+    # macOS
+    echo -n "$input" | pbcopy
+  elif [ -n "$TMUX" ]; then
+    # tmux
+    echo -n "$input" | tmux load-buffer -
+  else
+    echo "No clipboard tool found (wl-copy, xclip, xsel, pbcopy)"
+    return 1
+  fi
+  
+  echo "Copied to clipboard!"
+}
+
