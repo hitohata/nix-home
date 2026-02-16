@@ -138,3 +138,22 @@ vim.api.nvim_create_autocmd("CursorHold", {
     vim.diagnostic.open_float(nil, { focusable = false })
   end,
 })
+
+-- Copy current file path to clipboard
+vim.keymap.set("n", "<leader>cp", function()
+  local path = vim.fn.expand("%:p")
+  vim.fn.setreg("+", path)
+  vim.notify("Copied: " .. path, vim.log.levels.INFO)
+end, { desc = "Copy absolute path" })
+
+vim.keymap.set("n", "<leader>cr", function()
+  local path = vim.fn.expand("%")
+  vim.fn.setreg("+", path)
+  vim.notify("Copied: " .. path, vim.log.levels.INFO)
+end, { desc = "Copy relative path" })
+
+vim.keymap.set("n", "<leader>cf", function()
+  local path = vim.fn.expand("%:t")
+  vim.fn.setreg("+", path)
+  vim.notify("Copied: " .. path, vim.log.levels.INFO)
+end, { desc = "Copy filename" })
