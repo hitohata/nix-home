@@ -1,6 +1,11 @@
-{ pkgs, config, ... }: {
+{ pkgs, config, lib, ... }: {
   programs.ghostty = {
     enable = true;
+
+    package = if pkgs.stdenv.isDarwin
+                then null
+                else (builtins.getFlake "github:ghostty-org/ghostty").packages.${pkgs.system}.ghostty;
+
     settings = {
       background-opacity = 0.85;
       background-image = "${config.home.homeDirectory}/Pictures/wallpapers/.gitkeep";
