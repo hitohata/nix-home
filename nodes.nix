@@ -1,4 +1,8 @@
 # manage all nodes
+let
+  envHome = builtins.getEnv "HOME";
+  extractedUser = baseNameOf envHome;
+in
 {
   # for debugging
   "root@intel-pc" = {
@@ -34,6 +38,15 @@
     hostname = "aarch64";
     username = "hoge";
     homeDir =  "/home/hoge";
+    isNixos = false;
+    extraModules = [];
+  };
+
+  "user@darwin" = {
+    system = "aarch64-darwin";
+    hostname = "aarch64-darwin";
+    username = extractedUser;
+    homeDir =  envHome;
     isNixos = false;
     extraModules = [];
   };
