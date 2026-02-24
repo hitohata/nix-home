@@ -5,7 +5,7 @@
   luasnip
   cmp_luasnip
 
-  # GitHub Copilot
+  # GitHub Copilot (inline suggestions)
   {
     plugin = copilot-lua;
     type = "lua";
@@ -37,6 +37,46 @@
           gitrebase = true,
         },
       }
+    '';
+  }
+
+  # Avante.nvim - Cursor-like AI IDE experience
+  dressing-nvim
+  plenary-nvim
+  nui-nvim
+  {
+    plugin = avante-nvim;
+    type = "lua";
+    config = ''
+      require("avante").setup {
+        provider = "copilot",
+        copilot = {
+          model = "claude-3.7-sonnet",  -- or "gpt-4o"
+        },
+        behaviour = {
+          auto_set_keymaps = true,
+          auto_apply_diff_after_generation = false,
+          minimize_diff = true,
+        },
+        hints = { enabled = true },
+        windows = {
+          position = "right",
+          width = 40,
+          sidebar_header = {
+            align = "center",
+            rounded = true,
+          },
+        },
+      }
+
+      -- Keybindings
+      local map = vim.keymap.set
+      map("n", "<leader>aa", "<cmd>AvanteAsk<cr>", { desc = "Avante: Ask" })
+      map("v", "<leader>aa", "<cmd>AvanteAsk<cr>", { desc = "Avante: Ask with selection" })
+      map("n", "<leader>ae", "<cmd>AvanteEdit<cr>", { desc = "Avante: Edit" })
+      map("v", "<leader>ae", "<cmd>AvanteEdit<cr>", { desc = "Avante: Edit selection" })
+      map("n", "<leader>ar", "<cmd>AvanteRefresh<cr>", { desc = "Avante: Refresh" })
+      map("n", "<leader>at", "<cmd>AvanteToggle<cr>", { desc = "Avante: Toggle" })
     '';
   }
 

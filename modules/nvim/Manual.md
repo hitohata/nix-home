@@ -8,6 +8,7 @@
 - [LSP (Language Server)](#lsp-language-server)
 - [Code Completion](#code-completion)
 - [GitHub Copilot](#github-copilot)
+- [Avante (AI Agent)](#avante-ai-agent)
 - [Git Integration](#git-integration)
 - [Terminal](#terminal)
 - [File Explorer](#file-explorer)
@@ -111,6 +112,7 @@ Aerial provides a code outline window for skimming and quick navigation through 
 
 ## GitHub Copilot
 
+### Inline Suggestions
 | Keybinding | Description |
 |------------|-------------|
 | `<M-l>` | Accept suggestion |
@@ -120,6 +122,39 @@ Aerial provides a code outline window for skimming and quick navigation through 
 | `<M-[>` | Previous suggestion |
 | `<C-]>` | Dismiss suggestion |
 | `<M-CR>` | Open Copilot panel |
+
+## Avante (AI Agent)
+
+Avante provides a Cursor-like AI IDE experience with chat, code editing, and diff preview.
+
+### Keybindings
+| Keybinding | Description |
+|------------|-------------|
+| `<leader>aa` | Open Avante chat (ask AI) |
+| `<leader>ae` | Edit code with AI |
+| `<leader>at` | Toggle Avante sidebar |
+| `<leader>ar` | Refresh Avante |
+
+### Visual Mode
+| Keybinding | Description |
+|------------|-------------|
+| `<leader>aa` | Ask AI about selection |
+| `<leader>ae` | Edit selection with AI |
+
+### Commands
+| Command | Description |
+|---------|-------------|
+| `:AvanteAsk` | Open chat and ask AI |
+| `:AvanteEdit` | Edit code with AI assistance |
+| `:AvanteToggle` | Toggle the Avante sidebar |
+| `:AvanteRefresh` | Refresh Avante state |
+| `:AvanteClear` | Clear chat history |
+
+### Workflow
+1. Select code (optional) and press `<leader>aa` to ask questions
+2. Use `<leader>ae` to request code modifications
+3. Review the diff preview in the sidebar
+4. Accept or reject suggested changes
 
 ## Git Integration
 
@@ -229,6 +264,9 @@ Neovim commands are executed in normal mode by typing `:` followed by the comman
 | `:ToggleTerm` | Toggle terminal window |
 | `:AerialToggle` | Toggle code outline |
 | `:AerialInfo` | Show Aerial debug info |
+| `:AvanteAsk` | Open Avante chat |
+| `:AvanteEdit` | Edit code with AI |
+| `:AvanteToggle` | Toggle Avante sidebar |
 
 ### Built-in Commands
 
