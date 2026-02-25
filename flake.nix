@@ -34,6 +34,7 @@
           extraSpecialArgs = {
             inherit configName ghostty;
             pkgs-unstable = mkUnstable system;
+            isNixOS = false;
           };
           modules = [
             ./home.nix
@@ -59,6 +60,7 @@
               home-manager.extraSpecialArgs = {
                 inherit configName ghostty;
                 pkgs-unstable = mkUnstable.system;
+                isNixOS = true;
               };
             }
           ];
