@@ -44,7 +44,10 @@
     isNormalUser = true;
     description = "hoge";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPecawIGB5QnbVGj1g0My61YdryyuAVysqu2r87tND1J m3"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMIrxRnkBpffDfzvAiNkkpRA3jIMfEiZQmAJW9WoCjwV node"
+    ];
   };
 
   # Allow unfree packages
