@@ -10,9 +10,13 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
+    };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ... }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ghostty, ... }:
     let
 
       # import nodes
@@ -28,7 +32,7 @@
         home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system};
           extraSpecialArgs = {
-            inherit configName;
+            inherit configName ghostty;
             pkgs-unstable = mkUnstable system;
           };
           modules = [
@@ -53,7 +57,7 @@
                 imports = [ ./home.nix ] ++ extraModules;
               };
               home-manager.extraSpecialArgs = {
-                inherit configName;
+                inherit configName ghostty;
                 pkgs-unstable = mkUnstable.system;
               };
             }
