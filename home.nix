@@ -1,9 +1,4 @@
-{ pkgs, pkgs-unstable, configName, lib, ... }: 
-let
-  # On NixOS, the system manages nix, so home-manager shouldn't set nix.package
-  isNixOS = builtins.pathExists /etc/nixos;
-in
-{
+{ pkgs, pkgs-unstable, configName, lib, isNixOS, ... }: {
   home.stateVersion = "25.11";
 
   # to avoid man-db conflict
@@ -17,6 +12,7 @@ in
     SHELL = "${pkgs.bash}/bin/bash";
   };
 
+  # On NixOS, the system manages nix, so home-manager shouldn't set nix options
   nix = lib.mkIf (!isNixOS) {
     package = pkgs.nix;
     settings = {

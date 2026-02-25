@@ -28,13 +28,12 @@
       };
 
       # Home manager configurations
-      mkHomeConfig = system: username: homeDirectory: configName: extraModules:
+      mkHomeConfig = system: username: homeDirectory: configName: isNixOS: extraModules:
         home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system};
           extraSpecialArgs = {
-            inherit configName ghostty;
+            inherit configName ghostty isNixOS;
             pkgs-unstable = mkUnstable system;
-            isNixOS = false;
           };
           modules = [
             ./home.nix
@@ -46,7 +45,7 @@
         };
       
       # NixOS configuration 
-      mkNixosConfig = system: hostname: username: configName: extraModules:
+      mkNixosConfig = system: hostname: username: configName: isNixOS: extraModules:
         nixpkgs.lib.nixosSystem {
           inherit system;
           modules = [
@@ -58,9 +57,8 @@
                 imports = [ ./home.nix ] ++ extraModules;
               };
               home-manager.extraSpecialArgs = {
-                inherit configName ghostty;
+                inherit configName ghostty isNixOS;
                 pkgs-unstable = mkUnstable.system;
-                isNixOS = true;
               };
             }
           ];
@@ -68,12 +66,12 @@
     in {
       # --- Home Manager ---
       homeConfigurations = builtins.mapAttrs
-        (name: node: mkHomeConfig node.system node.username node.homeDir name node.extraModules)
+        (name: node: mkHomeConfig node.system node.username node.homeDir name node.isNixos node.extraModules)
         (nixpkgs.lib.filterAttrs (_: n: !n.isNixos) nodes); 
 
       # For nixOS
       nixosConfigurations = builtins.mapAttrs
-        (name: node: mkNixosConfig node.system node.hostname node.username name node.extraModules)
+        (name: node: mkNixosConfig node.system node.hostname node.username name node.isNixos node.extraModules)
         (nixpkgs.lib.filterAttrs (_: n: n.isNixos) nodes); 
     };
 }
