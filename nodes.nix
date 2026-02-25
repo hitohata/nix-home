@@ -59,6 +59,7 @@ in
     isNixos = true;
     extraModules = [
       ./desktops/hyprland/default.nix
+      ./modules/browsers/default.nix
     ];
   };
 }

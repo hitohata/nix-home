@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, configName, ... }: {
+{ pkgs, pkgs-unstable, configName, lib, isNixOS, ... }: {
   home.stateVersion = "25.11";
 
   # to avoid man-db conflict
@@ -12,7 +12,8 @@
     SHELL = "${pkgs.bash}/bin/bash";
   };
 
-  nix = {
+  # On NixOS, the system manages nix, so home-manager shouldn't set nix options
+  nix = lib.mkIf (!isNixOS) {
     package = pkgs.nix;
     settings = {
       experimental-features = [ "nix-command" "flakes" ];

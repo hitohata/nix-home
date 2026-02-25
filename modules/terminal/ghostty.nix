@@ -1,10 +1,10 @@
-{ pkgs, config, lib, ... }: {
+{ pkgs, config, lib, ghostty, ... }: {
   programs.ghostty = {
     enable = true;
 
     package = if pkgs.stdenv.isDarwin
                 then null
-                else (builtins.getFlake "github:ghostty-org/ghostty").packages.${pkgs.system}.ghostty;
+                else ghostty.packages.${pkgs.system}.ghostty;
 
     settings = {
       background-opacity = 0.85;
