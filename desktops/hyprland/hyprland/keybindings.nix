@@ -1,5 +1,5 @@
 {
-  "$mainMod" = "SUPER";
+  "$mainMod" = "ALT";
   "$mainMod1" = "CTRL";
   "$mainMod2" = "SHIFT";
   "$mainMod3" = "ALT";
