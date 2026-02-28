@@ -62,4 +62,15 @@ in
       ./modules/browsers/default.nix
     ];
   };
+
+  "user@centre" = {
+    system = "x86_64-linux";
+    hostname = "centre";
+    username = "hoge";
+    homeDir =  "/home/hoge";
+    isNixos = true;
+    extraModules = [
+      ./desktops/hyprland/default.nix
+    ];
+  };
 }
