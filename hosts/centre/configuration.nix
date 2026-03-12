@@ -9,6 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../shared/nas.nix
+      ../../services/immich.nix
     ];
 
   # Bootloader.
