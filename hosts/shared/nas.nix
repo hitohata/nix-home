@@ -2,7 +2,7 @@
 {
   services.rpcbind.enable = true;
   boot.supportedFilesystems = [ "nfs" ];
-  fileSystems."mnt/pi_nas" = {
+  fileSystems."/mnt/pi_nas" = {
     device = "pi-nas.local:/Pi-NAS";
     fsType = "nfs";
     options = [
