@@ -30,31 +30,6 @@
         end,
       })
 
-      -- Nix
-      vim.lsp.config.nil_ls = {
-        cmd = { "nil" },
-        filetypes = { "nix" },
-        root_markers = { "flake.nix", ".git" },
-        settings = {
-          ["nil"] = {
-            formatting = {
-              command = { "nixpkgs-fmt" },
-            },
-          },
-        },
-        capabilities = capabilities,
-      }
-      vim.lsp.enable("nil_ls")
-
-      -- TypeScript
-      vim.lsp.config.ts_ls = {
-        cmd = { "typescript-language-server", "--stdio" },
-        filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
-        root_markers = { "tsconfig.json", "jsconfig.json", "package.json", ".git" },
-        capabilities = capabilities,
-      }
-      vim.lsp.enable("ts_ls")
-
       -- Python
       vim.lsp.config.pyright = {
         cmd = { "pyright-langserver", "--stdio" },
@@ -63,32 +38,6 @@
         capabilities = capabilities,
       }
       vim.lsp.enable("pyright")
-
-      -- Lua
-      vim.lsp.config.lua_ls = {
-        cmd = { "lua-language-server" },
-        filetypes = { "lua" },
-        root_markers = { ".luarc.json", ".luarc.jsonc", ".git" },
-        settings = {
-          Lua = {
-            runtime = {
-              version = "LuaJIT",
-            },
-            diagnostics = {
-              globals = { "vim" },
-            },
-            workspace = {
-              library = vim.api.nvim_get_runtime_file("", true),
-              checkThirdParty = false,
-            },
-            telemetry = {
-              enable = false,
-            },
-          },
-        },
-        capabilities = capabilities,
-      }
-      vim.lsp.enable("lua_ls")
 
       -- CSpell
       vim.lsp.config.cspell = {
@@ -101,4 +50,3 @@
     '';
   }
 ]
-
