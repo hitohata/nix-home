@@ -101,7 +101,7 @@
       require("night-owl").setup({
         transparent_background = true,
       })
-      vim.cmd("colourschema night-owl")
+      vim.cmd("colorscheme night-owl")
     '';
   }
 
@@ -381,4 +381,3 @@
     '';
   }
 ]
-
