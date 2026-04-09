@@ -37,6 +37,9 @@
     # dot dir
     direnv
     nix-direnv
+    
+    # secrets
+    sops
   ];
 }
 
