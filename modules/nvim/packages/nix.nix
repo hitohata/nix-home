@@ -1,5 +1,12 @@
-{ pkgs, ... }: with pkgs; [
-  nil
-  nixpkgs-fmt
-]
+{ pkgs, ... }: {
+  programs.neovim = {
+    extraLuaConfig = ''
+      ${builtins.readFile ./nix.lua}
+    '';
+  };
 
+  home.packages = with pkgs; [
+    nil
+    nixpkgs-fmt
+  ];
+}

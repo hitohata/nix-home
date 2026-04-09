@@ -20,6 +20,8 @@
     };
   };
 
+  targets.genericLinux.enable = true;
+
   # Module imports
   imports = [
     ./modules/nvim/default.nix
