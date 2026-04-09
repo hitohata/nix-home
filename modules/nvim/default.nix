@@ -11,13 +11,13 @@ let
   # Packages
   nixPackages = import ./packages/nix.nix { inherit pkgs; };
   typescriptPackages = import ./packages/typescript.nix { inherit pkgs; };
-  pythonPackages = import ./packages/python.nix { inherit pkgs; };
   luaPackages = import ./packages/lua.nix { inherit pkgs; };
   toolsPackages = import ./packages/tools.nix { inherit pkgs; };
 in
 {
   imports = [
     ./packages/rust.nix
+    ./packages/python.nix
   ];
   programs.neovim = {
     enable = true;    
@@ -32,7 +32,6 @@ in
 
     extraPackages = nixPackages
       ++ typescriptPackages
-      ++ pythonPackages
       ++ luaPackages
       ++ toolsPackages;
   };
