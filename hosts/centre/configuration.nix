@@ -10,6 +10,7 @@
       ./hardware-configuration.nix
       ../shared/nas.nix
       ../../services/immich.nix
+      ../../services/nextcloud.nix
     ];
 
   # Bootloader.
