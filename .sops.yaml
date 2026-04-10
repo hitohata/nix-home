@@ -2,6 +2,7 @@ keys:
   - &user age1qfduudwdxlqwku4uaqsg5mj3mf5mmwthrl4lel9wducdsprnp4ysexcce9
   - &user age19qlha685ckt9tcvx75zysq2f8jt796g83ccwq4hm6lup7jwzmvys8pll0v
   - &user age120vf2e4zrj076w5qt2835rl5xrh449cts3g7gqneg9h8224kasas30wm5j
+  - &user age1v9aucpmf9wl9w3g0sxjzk3jm8tcgsqy9jd8qs2s2qmy4m75tr5gqjv7axv
 
 creation_rules:
 - path_regex: secrets/.*\.yaml$
