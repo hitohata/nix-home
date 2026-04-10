@@ -26,6 +26,18 @@ vim.opt.showmode = false -- Shown by lualine instead
 
 -- Transparent background (apply after colorscheme loads)
 local function set_transparent_bg()
+  local normal_hl = vim.api.nvim_get_hl(0, { name = "Normal", link = false })
+  local notify_bg = normal_hl.bg
+  if notify_bg ~= nil then
+    vim.g.notify_bg = notify_bg
+  else
+    notify_bg = vim.g.notify_bg
+  end
+  if notify_bg == nil then
+    notify_bg = "#000000"
+  end
+  vim.api.nvim_set_hl(0, "NotifyBackground", { bg = notify_bg })
+
   vim.api.nvim_set_hl(0, "Normal", { bg = "NONE", ctermbg = "NONE" })
   vim.api.nvim_set_hl(0, "NormalNC", { bg = "NONE", ctermbg = "NONE" })
   vim.api.nvim_set_hl(0, "NormalFloat", { bg = "NONE", ctermbg = "NONE" })

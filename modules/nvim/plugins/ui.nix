@@ -80,18 +80,28 @@
   }
 
   # Colorscheme
+  # {
+  #   plugin = kanagawa-nvim;
+  #   type = "lua";
+  #   config = ''
+  #     require("kanagawa").setup {
+  #       theme = "dragon",
+  #       background = {
+  #         dark = "dragon",
+  #         light = "lotus"
+  #       },
+  #     }
+  #     vim.cmd("colorscheme kanagawa-dragon")
+  #   '';
+  # }
   {
-    plugin = kanagawa-nvim;
+    plugin = night-owl-nvim;
     type = "lua";
     config = ''
-      require("kanagawa").setup {
-        theme = "dragon",
-        background = {
-          dark = "dragon",
-          light = "lotus"
-        },
-      }
-      vim.cmd("colorscheme kanagawa-dragon")
+      require("night-owl").setup({
+        transparent_background = true,
+      })
+      vim.cmd("colorscheme night-owl")
     '';
   }
 
@@ -181,6 +191,22 @@
         },
         filters = {
           dotfiles = false,
+          git_ignore = false,
+        },
+        git = {
+          ignore = false,
+        },
+        filesystem_watchers = {
+          enable = true,
+          debounce_delay = 50,
+          ignore_dirs = {
+            "node_modules",
+            "cdk.out",
+            "target",
+            "dist",
+            "venv",
+            ".venv"
+          },
         },
       }
       vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", { desc = "Toggle file explorer" })
@@ -355,4 +381,3 @@
     '';
   }
 ]
-
