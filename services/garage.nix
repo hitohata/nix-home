@@ -67,6 +67,7 @@ in
         echo "DEBUG: Secret loaded successfully. Launching Garage..."
         exec ${pkgs.garage}/bin/garage -c $HOME/.config/garage/garage.toml server
       '';
+
       Restart = "always";
       RestartSec = "5s";
       StandardOutput = "journal";
