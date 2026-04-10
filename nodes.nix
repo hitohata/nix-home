@@ -73,4 +73,15 @@ in
       ./desktops/hyprland/default.nix
     ];
   };
+
+  "user@pi-nas" = {
+    system = "aarch64-linux";
+    hostname = "aarch64";
+    username = "hoge";
+    homeDir =  "/home/hoge";
+    isNixos = false;
+    extraModules = [
+      ./services/garage.nix
+    ];
+  };
 }

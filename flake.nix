@@ -32,7 +32,8 @@
         home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system};
           extraSpecialArgs = {
-            inherit configName ghostty isNixOS;
+            inherit self configName ghostty isNixOS;
+            inherit (self) inputs;
             pkgs-unstable = mkUnstable system;
           };
           modules = [
@@ -57,7 +58,8 @@
                 imports = [ ./home.nix ] ++ extraModules;
               };
               home-manager.extraSpecialArgs = {
-                inherit configName ghostty isNixOS;
+                inherit self configName ghostty isNixOS;
+                inherit (self) inputs;
                 pkgs-unstable = mkUnstable.system;
               };
             }
