@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  raidMount = "/srv/disk-by-uuid-7bb319ea-0641-4ce1-a820-fbd7d7219c36/Pi-NAS"; # mound point of OMV
+  raidMount = "/srv/disk-by-uuid-7bb319ea-0641-4ce1-a820-fbd7d7219c36/Pi-NAS";
   garageRoot = "${raidMount}/garage";
 in
 {
@@ -9,20 +9,27 @@ in
     ./shared/sops.nix
   ];
 
-  sops.secrets."garage/rpc_secret" = {
-    restartUnits = [ "garage.service" ];
-  };
+  sops.secrets."garage/rpc_secret" = { };
 
+  home.packages = [
+    (pkgs.writeShellScriptBin "garage" ''
+      set -e
+      SECRET_PATH=$(ls /run/user/$(id -u)/secrets.d/*/garage/rpc_secret 2>/dev/null | head -n 1)
+      
+      if [ -n "$SECRET_PATH" ] && [ -f "$SECRET_PATH" ]; then
+        export GARAGE_RPC_SECRET=$(cat "$SECRET_PATH")
+      fi
 
-  # setting file https://garagehq.deuxfleurs.fr/reference_manual/configuration.html
+      exec ${pkgs.garage}/bin/garage -c $HOME/.config/garage/garage.toml "$@"
+    '')
+  ];
+
   home.file.".config/garage/garage.toml".text = ''
     metadata_dir = "${garageRoot}/meta"
     data_dir = "${garageRoot}/data"
     replication_factor = 1
 
-    [rpc_bind]
-    address = "[::]:3901"
-    # secret is injected as an environment value
+    rpc_bind_addr = "[::]:3901"
 
     [s3_api]
     address = "[::]:3900"
@@ -44,8 +51,22 @@ in
       After = [ "sops-nix.service" "network-online.target" ];
     };
     Service = {
-      EnvironmentFile = config.sops.secrets."garage/rpc_secret".path;
-      ExecStart = "${pkgs.garage}/bin/garage server -c %h/.config/garage/garage.toml";
+      ExecStart = pkgs.writeShellScript "garage-launcher" ''
+        set -e
+        SECRET_PATH=$(ls /run/user/$(id -u)/secrets.d/*/garage/rpc_secret | head -n 1)
+        
+        echo "DEBUG: Found secret path at $SECRET_PATH"
+        
+        if [ -z "$SECRET_PATH" ] || [ ! -f "$SECRET_PATH" ]; then
+          echo "ERROR: Could not resolve secret path in /run/user/$(id -u)/secrets.d/"
+          exit 1
+        fi
+        
+        export GARAGE_RPC_SECRET=$(cat "$SECRET_PATH")
+        
+        echo "DEBUG: Secret loaded successfully. Launching Garage..."
+        exec ${pkgs.garage}/bin/garage -c $HOME/.config/garage/garage.toml server
+      '';
       Restart = "always";
       RestartSec = "5s";
       StandardOutput = "journal";
