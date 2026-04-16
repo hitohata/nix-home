@@ -20,7 +20,7 @@
     };
   };
 
-  targets.genericLinux.enable = true;
+  targets.genericLinux.enable = pkgs.stdenv.isx86_64 && (!isNixOS);
 
   # Module imports
   imports = [

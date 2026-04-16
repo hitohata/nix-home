@@ -41,6 +41,9 @@
     # secrets
     sops
     age
+
+    # nix tools
+    comma # https://github.com/nix-community/comma
   ];
 }
 
