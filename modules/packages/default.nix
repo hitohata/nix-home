@@ -40,6 +40,7 @@
     
     # secrets
     sops
+    age
   ];
 }
 
