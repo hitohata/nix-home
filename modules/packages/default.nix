@@ -17,6 +17,7 @@
 
     # File managers
     yazi
+    bat
 
     # Process tools
     htop
