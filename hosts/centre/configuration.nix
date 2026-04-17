@@ -10,6 +10,7 @@
       ./hardware-configuration.nix
       ../shared/nas.nix
       ../../services/immich.nix
+      ../../services/nextcloud.nix
     ];
 
   # Bootloader.
@@ -81,4 +82,5 @@
 
   system.stateVersion = "25.11"; # Did you read the comment?
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 }

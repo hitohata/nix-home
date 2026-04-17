@@ -71,6 +71,7 @@ in
     isNixos = true;
     extraModules = [
       ./desktops/hyprland/default.nix
+      ./services/shared/sops.nix
     ];
   };
 

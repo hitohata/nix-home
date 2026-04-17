@@ -1,10 +1,12 @@
 { pkgs, ... }:
-{
+let
+  port = 2283;
+in {
 
   services.immich = {
     enable = true;
     host = "0.0.0.0";
-    port = 2283;
+    port = port;
     mediaLocation = "/mnt/pi_nas/immich/storage";
   };
 
@@ -21,5 +23,5 @@
     databases = [ "immich" ];
   };
 
-  networking.firewall.allowedTCPPorts = [ 2283 ];
+  networking.firewall.allowedTCPPorts = [ port ];
 }

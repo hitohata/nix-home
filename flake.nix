@@ -21,7 +21,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ghostty, ... }:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ghostty, ... }@inputs:
     let
 
       # import nodes
@@ -43,6 +43,7 @@
           };
           modules = [
             ./home.nix
+            inputs.sops-nix.nixosModules.sops
             {
               home.username = username;
               home.homeDirectory = homeDirectory;
@@ -56,6 +57,7 @@
           inherit system;
           modules = [
             ./hosts/${hostname}/configuration.nix
+            inputs.sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
