@@ -71,7 +71,7 @@ in
     isNixos = true;
     extraModules = [
       ./desktops/hyprland/default.nix
-      ./services/nextcloud.nix
+      ./services/shared/sops.nix
     ];
   };
 
