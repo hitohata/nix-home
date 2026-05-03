@@ -3,6 +3,7 @@
     # Core utilities
     coreutils
     curl
+    xclip
 
     # File tools
     tree
