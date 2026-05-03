@@ -3,6 +3,7 @@
     # Core utilities
     coreutils
     curl
+    fastfetch
 
     # File tools
     tree
