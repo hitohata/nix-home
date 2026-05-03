@@ -9,6 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../shared/nas.nix
+      ../shared/avahi.nix
       ../../services/immich.nix
       ../../services/nextcloud.nix
     ];
@@ -59,17 +60,6 @@
       ClientAliveInterval 30
       ClientAliveCountMax 3
     '';
-  };
-
-  # Avahi
-  services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    publish = {
-      enable = true;
-      addresses = true;
-      userServices = true;
-    };
   };
 
   # List packages installed in system profile. To search, run:

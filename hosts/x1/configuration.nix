@@ -9,12 +9,14 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../shared/input.nix
+      ../shared/avahi.nix
       ../../desktops/gnome
     ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "x1"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
