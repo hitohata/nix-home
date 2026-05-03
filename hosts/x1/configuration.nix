@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../shared/input.nix
       ../../desktops/gnome
     ];
 
@@ -27,15 +28,6 @@
 
   # Set your time zone.
   time.timeZone = "America/Vancouver";
-
-  # Select internationalisation properties.
-  i18n = {
-    defaultLocale = "en_CA.UTF-8";
-    inputMethod = {
-      enabled = "ibus";
-      ibus.engines = with pkgs.ibus-engines; [ mozc ];
-    };
-  };
 
   # Configure keymap in X11
   services.xserver.xkb = {
