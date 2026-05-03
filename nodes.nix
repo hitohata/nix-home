@@ -63,6 +63,18 @@ in
     ];
   };
 
+  "user@x1" = {
+    system = "x86_64-linux";
+    hostname = "x1";
+    username = "hoge";
+    homeDir =  "/home/hoge";
+    isNixos = true;
+    extraModules = [
+      ./desktops/hyprland/default.nix
+      ./modules/browsers/default.nix
+    ];
+  };
+
   "user@centre" = {
     system = "x86_64-linux";
     hostname = "centre";

@@ -24,6 +24,7 @@
     btop
 
     # Git tools
+    git
     lazygit
     gh
 
