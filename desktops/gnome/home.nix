@@ -8,6 +8,13 @@
       switch-applications = [ ];
       switch-applications-backward = [ ];
     };
+    "org/gnome/mutter" = {
+      experimental-features = [ "scale-monitor-framebuffer" ];
+      workspaces-only-on-primary = false;
+    };
+    "org/gnome/shell/overrides" = {
+      dynamic-workspaces = true;
+    };
     "org/gnome/desktop/interface" = {
       color-schema = "prefer-dark";
     };
