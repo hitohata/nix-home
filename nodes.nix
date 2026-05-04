@@ -75,6 +75,7 @@ in
       ./desktops/gnome/home.nix
       ./desktop_modules/default.nix
       ./modules/browsers/default.nix
+      ./modules/dev_modules/default.nix
     ];
   };
 

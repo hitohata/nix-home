@@ -49,9 +49,16 @@
   users.users.hoge = {
     isNormalUser = true;
     description = "hoge";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
     ];
+  };
+
+  # for screen share
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
+    config.common.default = "*";
   };
 
   # Allow unfree packages
