@@ -70,6 +70,9 @@ in
       v = "nvim";
       vi = "nvim";
       vim = "nvim";
+
+      # Fastfetch
+      neofetch = "fastfetch";
     };
 
     # Environment variables

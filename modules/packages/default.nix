@@ -4,6 +4,7 @@
     coreutils
     curl
     xclip
+    fastfetch
 
     # File tools
     tree
