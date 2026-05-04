@@ -9,6 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../shared/nas.nix
+      ../shared/avahi.nix
     ];
 
   # Bootloader.
@@ -55,17 +56,6 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMIrxRnkBpffDfzvAiNkkpRA3jIMfEiZQmAJW9WoCjwV node"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINEzr66JjoWf5GhDxiaPWx7wz113IgZFQTIt9jtllRvW x1"
     ];
-  };
-
-  # Avahi
-  services.avahi = {
-    enable = true;
-    nssmdns4 = true;
-    publish = {
-      enable = true;
-      addresses = true;
-      userServices = true;
-    };
   };
 
   # Allow unfree packages

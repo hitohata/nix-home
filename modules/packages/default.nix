@@ -3,6 +3,7 @@
     # Core utilities
     coreutils
     curl
+    xclip
     fastfetch
 
     # File tools
@@ -25,6 +26,7 @@
     btop
 
     # Git tools
+    git
     lazygit
     gh
 
