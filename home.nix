@@ -27,7 +27,6 @@
     ./modules/nvim/default.nix
     ./modules/bash/default.nix
     ./modules/packages/default.nix
-    ./modules/dev_modules/default.nix
     ./modules/ui/fonts.nix
     ./modules/terminal/default.nix
   ];
