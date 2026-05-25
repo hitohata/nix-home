@@ -169,3 +169,23 @@ vim.keymap.set("n", "<leader>cf", function()
   vim.fn.setreg("+", path)
   vim.notify("Copied: " .. path, vim.log.levels.INFO)
 end, { desc = "Copy filename" })
+
+-- Inlay hint
+vim.api.nvim_create_autocmd("LspAttach", {
+  callback = function(args)
+    local bufnr = args.buf
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    if not client then
+      return
+    end
+    local supports = client.supports_method and client.supports_method("textDocument/inlayHint")
+    local cap = client.server_capabilities and client.server_capabilities.inlayHintProvider
+    if supports or cap then
+      if vim.lsp.inlay_hint then
+        pcall(vim.lsp.inlay_hint, bufnr, true)
+      elseif vim.lsp.buf and vim.lsp.buf.inlay_hint then
+        pcall(vim.lsp.buf.inlay_hint, bufnr, true)
+      end
+    end
+  end,
+})

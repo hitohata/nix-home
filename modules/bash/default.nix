@@ -73,6 +73,10 @@ in
 
       # Fastfetch
       neofetch = "fastfetch";
+
+      # Copilot
+      # to use latest tool, call it via npx
+      copilot = "nix shell nixpkgs#nodejs -c npx copilot";
     };
 
     # Environment variables
