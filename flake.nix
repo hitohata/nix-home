@@ -67,7 +67,7 @@
               home-manager.extraSpecialArgs = {
                 inherit self configName ghostty isNixOS;
                 inherit (self) inputs;
-                pkgs-unstable = mkUnstable.system;
+                pkgs-unstable = mkUnstable system;
               };
             }
           ];
