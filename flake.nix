@@ -54,8 +54,8 @@
       # NixOS configuration 
       mkNixosConfig = system: hostname: username: configName: isNixOS: extraModules:
         nixpkgs.lib.nixosSystem {
-          inherit system;
           modules = [
+            { nixpkgs.hostPlatform = system; }
             ./hosts/${hostname}/configuration.nix
             inputs.sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager {
