@@ -73,6 +73,7 @@ in
     extraModules = [
       ./desktops/hyprland/default.nix
       ./desktops/gnome/home.nix
+      ./desktops/kde/home.nix
       ./desktop_modules/default.nix
       ./modules/browsers/default.nix
       ./modules/dev_modules/default.nix

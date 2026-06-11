@@ -7,6 +7,7 @@
       ../shared/input.nix
       ../shared/avahi.nix
       ../../desktops/gnome
+      ../../desktops/kde
     ];
 
   # Bootloader.
@@ -24,8 +25,8 @@
 
   # Configure keymap in X11
   services.xserver.xkb = {
-    layout = "us";
-    variant = "";
+    layout = "us,jp";
+    options = "grp:win_ctrl_toggle";
   };
 
   services.tailscale = {
