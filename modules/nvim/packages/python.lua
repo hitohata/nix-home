@@ -32,4 +32,9 @@ else
   lspconfig.ruff.setup({})
 end
 
-require('dap-python').setup('python3')
+local status, dap_python = pcall(require, "dap-python")
+if status then
+    dap_python.setup("python")
+else
+    vim.notify("dap-python not found", vim.log.levels.WARN)
+end
