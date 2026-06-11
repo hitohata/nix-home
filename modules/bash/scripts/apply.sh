@@ -25,7 +25,7 @@ apply() {
     sudo nixos-rebuild switch --flake ".#$target"
   else
     echo "rebuild and switch to new flake setting..."
-    nix run github:nix-community/home-manager/release-25.11 -- \
+    nix run github:nix-community/home-manager/release-26.05 -- \
       --impure switch --flake ".#$target"
   fi
 }
