@@ -4,7 +4,7 @@
 
     package = if pkgs.stdenv.isDarwin
                 then null
-                else ghostty.packages.${pkgs.system}.ghostty;
+                else ghostty.packages.${pkgs.stdenv.hostPlatform.system}.ghostty;
 
     settings = {
       background-opacity = 0.85;
