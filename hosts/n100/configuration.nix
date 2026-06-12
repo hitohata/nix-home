@@ -10,6 +10,7 @@
       ./hardware-configuration.nix
       ../shared/nas.nix
       ../shared/avahi.nix
+      ../../services/homepage.nix
     ];
 
   # Bootloader.
