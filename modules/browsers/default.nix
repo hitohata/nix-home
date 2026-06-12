@@ -1,6 +1,13 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
     firefox
-    google-chrome
   ];
+
+  programs.chromium = {
+    enable = true;
+    package = pkgs.google-chrome;
+    commandLineArgs = [
+      "--ozone-platform=x11"
+    ];
+  };
 }
