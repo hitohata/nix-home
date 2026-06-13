@@ -67,7 +67,7 @@
   environment.systemPackages = with pkgs; [
   ];
 
-  system.stateVersion = "25.11"; # Did you read the comment?
+  system.stateVersion = "26.05"; # Did you read the comment?
 
   # dynamic binary
   programs.nix-ld.enable = true;
