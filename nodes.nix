@@ -107,6 +107,8 @@ in
     username = "hoge";
     homeDir =  "/home/hoge";
     isNixos = false;
-    extraModules = [];
+    extraModules = [
+      ./modules/others/nbd/default.nix
+    ];
   };
 }
