@@ -43,7 +43,7 @@
           };
           modules = [
             ./home.nix
-            inputs.sops-nix.nixosModules.sops
+            inputs.sops-nix.homeManagerModules.sops
             {
               home.username = username;
               home.homeDirectory = homeDirectory;
