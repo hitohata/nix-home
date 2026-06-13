@@ -101,4 +101,12 @@ in
       ./services/garage.nix
     ];
   };
+  "user@p51" = {
+    system = "aarch64-linux";
+    hostname = "aarch64";
+    username = "hoge";
+    homeDir =  "/home/hoge";
+    isNixos = false;
+    extraModules = [];
+  };
 }
