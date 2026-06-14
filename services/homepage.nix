@@ -4,6 +4,7 @@ let
   dejimaHost = "dejima.local";
   n100Host = "n100.local";
   piNasHost = "pi-nas.local";
+  homeassistantHost = "homeassistant.local";
 in {
 
   networking.firewall.allowedTCPPorts = [ port ]; 
@@ -89,6 +90,14 @@ in {
               icon = "immich.png";
               href = "http://immich.sv";
               description = "Immich media server";
+              ping = n100Host;
+            };
+          }
+          {
+            "Homeassistnat" = {
+              icon = "home-assistant.png";
+              href = "http://homeassistant.sv";
+              description = "Homeassistant smart home server";
               ping = n100Host;
             };
           }
