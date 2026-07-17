@@ -76,6 +76,7 @@ in
       ./desktop_modules/default.nix
       ./modules/browsers/default.nix
       ./modules/dev_modules/default.nix
+      ./modules/others/gui/camera.nix
     ];
   };
 
