@@ -77,6 +77,8 @@ in
       ./modules/browsers/default.nix
       ./modules/dev_modules/default.nix
       ./modules/others/gui/camera.nix
+      ./modules/specific/ai_tool/claude.nix
+      ./modules/specific/ai_tool/codex.nix
     ];
   };
 
