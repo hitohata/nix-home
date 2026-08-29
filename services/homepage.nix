@@ -19,7 +19,7 @@ in {
       title = "Home Lab Gateway";
       favicon = "homepage.png";
       layout = {
-        "Infrastructure" = {style = "grid"; columns = 3; };
+        "Infrastructure" = {style = "row"; columns = 2; };
         "Services" = { style = "grid"; columns = 3; };
       };
     };
@@ -98,7 +98,7 @@ in {
               icon = "home-assistant.png";
               href = "http://homeassistant.sv";
               description = "Homeassistant smart home server";
-              ping = n100Host;
+              ping = homeassistantHost;
             };
           }
         ];
