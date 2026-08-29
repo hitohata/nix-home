@@ -19,9 +19,17 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    claude-code = {
+      url = "github:ryoppippi/nix-claude-code";
+    };
+
+    codex-cli = {
+      url = "github:sadjow/codex-cli-nix";
+    };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ghostty, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ghostty, codex-cli, claude-code, ... }@inputs:
     let
 
       # import nodes
@@ -37,7 +45,7 @@
         home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system};
           extraSpecialArgs = {
-            inherit self configName ghostty isNixOS;
+            inherit self configName ghostty isNixOS codex-cli claude-code;
             inherit (self) inputs;
             pkgs-unstable = mkUnstable system;
           };
@@ -66,7 +74,7 @@
                 imports = [ ./home.nix ] ++ extraModules;
               };
               home-manager.extraSpecialArgs = {
-                inherit self configName ghostty isNixOS;
+                inherit self configName ghostty isNixOS codex-cli claude-code;
                 inherit (self) inputs;
                 pkgs-unstable = mkUnstable system;
               };
