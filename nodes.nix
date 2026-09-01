@@ -61,6 +61,7 @@ in
       ./desktops/hyprland/default.nix
       ./desktops/gnome/home.nix
       ./modules/browsers/default.nix
+      ./services/k3s/k3s_home.nix
     ];
   };
 

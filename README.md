@@ -31,6 +31,26 @@ For a NixOS configuration, rebuild the matching target instead:
 sudo nixos-rebuild switch --flake '.#TARGET'
 ```
 
+## K3s
+
+`user@n100` runs a standalone K3s server through the NixOS `services.k3s`
+module. After applying that configuration, the cluster kubeconfig is available
+at `/etc/rancher/k3s/k3s.yaml`; it is readable by local users so `kubectl` can
+use it directly:
+
+```bash
+export KUBECONFIG=/etc/rancher/k3s/k3s.yaml
+kubectl get nodes
+```
+
+All Home Manager targets install `kubectl`, including non-NixOS machines. K3s
+itself is a system service and is not managed by Home Manager: install it on
+non-NixOS hosts with that operating system's package manager, then configure
+`KUBECONFIG` to point to the kubeconfig provided by that installation or copied
+from the K3s server. Do not copy the server kubeconfig unchanged to another
+machine; replace its `server:` address with the server's reachable IP or DNS
+name first.
+
 ## Update packages
 
 Update every flake input and write the new revisions to `flake.lock`:
