@@ -12,6 +12,7 @@
       ../shared/avahi.nix
       ../../services/immich.nix
       ../../services/homepage.nix
+      ../../services/k3s/k3s_server.nix
     ];
 
   # Bootloader.
