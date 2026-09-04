@@ -8,6 +8,7 @@
     role = "server";
     extraFlags = [
       "--tls-san ${config.networking.hostName}"
+      "--tls-san ${config.networking.hostName}.lan"
       "--tls-san ${config.networking.hostName}.local"
       "--node-name ${config.networking.hostName}"
       "--write-kubeconfig-mode=0644"
