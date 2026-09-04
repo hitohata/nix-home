@@ -23,12 +23,12 @@
   networking.hostName = "n100"; # Define your hostname.
 
   # Enable networking
-  networking.networkmanager.enable = true;
+  networking.networkmanager.enable = false;
 
   # get static address
   services.dejimaClient = {
     enable = true;
-    interface = "end0";
+    interface = "enp1s0";
     ipAddress = "192.168.10.10";
   };
 

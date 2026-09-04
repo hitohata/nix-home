@@ -66,6 +66,7 @@ in
 
       # Configure the specified network interface with the given static IP
       interfaces.${cfg.interface} = {
+        useDHCP = false;
         ipv4.addresses = [{
           address = cfg.ipAddress;
           prefixLength = cfg.prefixLength;
