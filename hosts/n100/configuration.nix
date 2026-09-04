@@ -10,6 +10,7 @@
       ./hardware-configuration.nix
       ../shared/nas.nix
       ../shared/avahi.nix
+      ../shared/dejima-client.nix
       ../../services/immich.nix
       ../../services/homepage.nix
       ../../services/k3s/k3s_server.nix
@@ -23,6 +24,13 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+
+  # get static address
+  services.dejimaClient = {
+    enable = true;
+    interface = "end0";
+    ipAddress = "192.168.10.10";
+  };
 
   # Set your time zone.
   time.timeZone = "America/Vancouver";
