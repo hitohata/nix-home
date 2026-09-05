@@ -101,6 +101,7 @@ in
     username = "hoge";
     homeDir =  "/home/hoge";
     isNixos = false;
+    enableGhostty = false;
     extraModules = [
       ./services/garage.nix
     ];
