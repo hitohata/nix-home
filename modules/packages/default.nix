@@ -34,6 +34,7 @@
     jq
     yq
     kubectl
+    kubeseal
 
     # Development tools
     gnumake
