@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
   imports =
@@ -57,9 +57,14 @@
   # for screen share
   xdg.portal = {
     enable = true;
-    extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
-    config.common.default = "*";
+    # GNOME's portal implements the ScreenCast API used by browser and
+    # Electron meeting clients. Keep GTK as the fallback for other portals.
+    config.gnome.default = [ "gnome" "gtk" ];
   };
+
+  # The Home Manager Hyprland module otherwise exports a portal directory that
+  # contains only the Hyprland backend, hiding GNOME's ScreenCast portal.
+  home-manager.users.hoge.xdg.portal.enable = lib.mkForce false;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
