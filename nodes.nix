@@ -80,6 +80,7 @@ in
       ./modules/others/gui/camera.nix
       ./modules/specific/ai_tool/claude.nix
       ./modules/specific/ai_tool/codex.nix
+      ./desktop_modules/nextcloud.nix
     ];
   };
 
