@@ -1,57 +1,59 @@
 {
-  # Window rules using windowrule (Firstp1ck style)
+  # Hyprland 0.55 uses the unified windowrule syntax.  Rule names and match
+  # selectors are snake_case / `match:*`; windowrulev2 is no longer supported.
   windowrule = [
     # Suppress maximize events
-    "suppressevent maximize, class:.*"
+    "suppress_event maximize, match:class .*"
+
+    # Preserve the previous global dwindle pseudotile behavior.  In 0.55 this
+    # is a window rule rather than a dwindle configuration option.
+    "pseudo on, match:class .*"
     
     # XWayland video bridge
-    "opacity 0.0 override, class:xwaylandvideobridge"
-    "noanim, class:xwaylandvideobridge"
-    "noinitialfocus, class:xwaylandvideobridge"
-    "maxsize 1 1, class:xwaylandvideobridge"
-    "noblur, class:xwaylandvideobridge"
-    "nofocus, class:xwaylandvideobridge"
+    "opacity 0.0 override, match:class xwaylandvideobridge"
+    "no_anim on, match:class xwaylandvideobridge"
+    "no_initial_focus on, match:class xwaylandvideobridge"
+    "max_size 1 1, match:class xwaylandvideobridge"
+    "no_blur on, match:class xwaylandvideobridge"
+    "no_focus on, match:class xwaylandvideobridge"
     
     # Float rules
-    "float, class:org.pulseaudio.pavucontrol"
-    "center, class:org.pulseaudio.pavucontrol"
+    "float on, match:class org.pulseaudio.pavucontrol"
+    "center on, match:class org.pulseaudio.pavucontrol"
     
-    "float, class:blueman-manager"
-    "center, class:blueman-manager"
+    "float on, match:class blueman-manager"
+    "center on, match:class blueman-manager"
     
-    "float, class:nm-connection-editor"
-    "center, class:nm-connection-editor"
+    "float on, match:class nm-connection-editor"
+    "center on, match:class nm-connection-editor"
     
-    "float, class:waypaper"
-    "center, class:waypaper"
+    "float on, match:class waypaper"
+    "center on, match:class waypaper"
     
-    "float, class:Tk"
-    "center, class:Tk"
+    "float on, match:class Tk"
+    "center on, match:class Tk"
     
-    "float, class:qalculate-gtk"
+    "float on, match:class qalculate-gtk"
     
     # Terminal notes
-    "float, class:ghostty, title:Notes"
-    "center, class:ghostty, title:Notes"
-    "size 800 600, class:ghostty, title:Notes"
-  ];
+    "float on, match:class ghostty, match:title Notes"
+    "center on, match:class ghostty, match:title Notes"
+    "size 800 600, match:class ghostty, match:title Notes"
 
-  # Windowrulev2 for more complex rules
-  windowrulev2 = [
     # Terminal transparency
-    "opacity 0.80 0.80, class:^(ghostty)$"
-    "opacity 0.80 0.80, class:^(Alacritty)$"
+    "opacity 0.80 0.80, match:class ^(ghostty)$"
+    "opacity 0.80 0.80, match:class ^(Alacritty)$"
     
     # Idle inhibit
-    "idleinhibit fullscreen, class:.*"
-    "idleinhibit focus, class:^(mpv)$"
-    "idleinhibit focus, title:^(.*YouTube.*)$"
+    "idle_inhibit fullscreen, match:class .*"
+    "idle_inhibit focus, match:class ^(mpv)$"
+    "idle_inhibit focus, match:title ^(.*YouTube.*)$"
   ];
 
   # Layer rules
   layerrule = [
-    "dimaround, wofi"
-    "blur, waybar"
-    "ignorezero, waybar"
+    "dim_around on, match:namespace wofi"
+    "blur on, match:namespace waybar"
+    "ignore_alpha 0.0, match:namespace waybar"
   ];
 }

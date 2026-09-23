@@ -104,8 +104,4 @@
     hide-on-action = true;
     script-fail-notify = true;
   };
-
-  wayland.windowManager.hyprland.settings.exec-once = [
-    "swaync"
-  ];
 }

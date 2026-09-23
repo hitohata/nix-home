@@ -17,7 +17,7 @@
     "wl-clipboard-history -t"
     
     # Wallpaper daemon
-    "swww-daemon"
+    "awww-daemon"
     
     # Start wallpaper loop (changes every 3 minutes)
     "sleep 2 && $HOME/.local/bin/wallpaper-loop 180"
