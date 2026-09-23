@@ -103,7 +103,7 @@ in
     isNixos = false;
     enableGhostty = false;
     extraModules = [
-      ./services/garage.nix
+      # ./services/garage.nix
     ];
   };
   "user@p51" = {
