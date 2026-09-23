@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports =
@@ -7,12 +7,16 @@
       ../shared/input.nix
       ../shared/avahi.nix
       ../../desktops/gnome
+      ../../desktops/kde
+      ../../desktops/hyprland/system.nix
     ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # NVIDIA 595 does not build against Linux 7.2 yet. Keep x1 on the supported
+  # 6.12 LTS kernel rather than tracking the newest kernel API.
+  boot.kernelPackages = pkgs.linuxPackages_6_12;
 
   networking.hostName = "x1"; # Define your hostname.
 
@@ -24,8 +28,8 @@
 
   # Configure keymap in X11
   services.xserver.xkb = {
-    layout = "us";
-    variant = "";
+    layout = "us,jp";
+    options = "grp:win_ctrl_toggle";
   };
 
   services.tailscale = {
@@ -45,6 +49,29 @@
     pulse.enable = true;
   };
 
+  # The internal panel is wired to Intel while the external DP ports are wired
+  # to the Turing NVIDIA GPU. Use NVIDIA's driver with DRM kernel modesetting
+  # so KWin can compose a single Wayland desktop across both GPUs.
+  hardware.graphics.enable = true;
+  services.xserver.videoDrivers = [ "modesetting" "nvidia" ];
+  hardware.nvidia = {
+    modesetting.enable = true;
+    # The open kernel module in 595.71.05 does not build against Linux 7.2.1.
+    # Use NVIDIA's compatible proprietary module; Wayland KMS support remains
+    # enabled through the setting above.
+    open = false;
+  };
+
+  # GDM presents every installed desktop session at login. Keep this choice
+  # local to x1; individual desktop modules only enable their own session.
+  services.displayManager.gdm.enable = true;
+
+  home-manager.users.hoge.imports = [
+    ../../desktops/gnome/home.nix
+    ../../desktops/kde/home.nix
+    ../../desktops/hyprland/default.nix
+  ];
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.hoge = {
     isNormalUser = true;
@@ -53,18 +80,6 @@
     packages = with pkgs; [
     ];
   };
-
-  # for screen share
-  xdg.portal = {
-    enable = true;
-    # GNOME's portal implements the ScreenCast API used by browser and
-    # Electron meeting clients. Keep GTK as the fallback for other portals.
-    config.gnome.default = [ "gnome" "gtk" ];
-  };
-
-  # The Home Manager Hyprland module otherwise exports a portal directory that
-  # contains only the Hyprland backend, hiding GNOME's ScreenCast portal.
-  home-manager.users.hoge.xdg.portal.enable = lib.mkForce false;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
