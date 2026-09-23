@@ -67,7 +67,8 @@
             ./hosts/${hostname}/configuration.nix
             inputs.sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager {
-              home-manager.backupFileExtension = "bak";
+              # Avoid colliding with pre-existing generic .bak files.
+              home-manager.backupFileExtension = "home-manager-backup";
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.${username} = { 

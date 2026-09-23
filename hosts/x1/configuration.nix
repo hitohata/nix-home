@@ -14,7 +14,9 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # NVIDIA 595 does not build against Linux 7.2 yet. Keep x1 on the supported
+  # 6.12 LTS kernel rather than tracking the newest kernel API.
+  boot.kernelPackages = pkgs.linuxPackages_6_12;
 
   networking.hostName = "x1"; # Define your hostname.
 
@@ -45,6 +47,19 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
+  };
+
+  # The internal panel is wired to Intel while the external DP ports are wired
+  # to the Turing NVIDIA GPU. Use NVIDIA's driver with DRM kernel modesetting
+  # so KWin can compose a single Wayland desktop across both GPUs.
+  hardware.graphics.enable = true;
+  services.xserver.videoDrivers = [ "modesetting" "nvidia" ];
+  hardware.nvidia = {
+    modesetting.enable = true;
+    # The open kernel module in 595.71.05 does not build against Linux 7.2.1.
+    # Use NVIDIA's compatible proprietary module; Wayland KMS support remains
+    # enabled through the setting above.
+    open = false;
   };
 
   # GDM presents every installed desktop session at login. Keep this choice
