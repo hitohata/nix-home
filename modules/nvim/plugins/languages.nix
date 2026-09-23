@@ -1,4 +1,8 @@
-{ pkgs, ... }: with pkgs.vimPlugins; [
+{ pkgs, ... }: 
+let
+  markdownPreviewNvim = import ./markdown-preview.nix { inherit pkgs; };
+in
+with pkgs.vimPlugins; [
   {
     plugin = rustaceanvim;
     type = "lua";
@@ -45,7 +49,7 @@
 
   # Markdown preview in browser
   {
-    plugin = markdown-preview-nvim;
+    plugin = markdownPreviewNvim;
     type = "lua";
     config = ''
       vim.g.mkdp_auto_close = 0

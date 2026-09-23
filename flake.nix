@@ -2,12 +2,12 @@
   description = "Portable Neovim and Home Manager Environment";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
 
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.11";
+      url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -19,9 +19,17 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    claude-code = {
+      url = "github:ryoppippi/nix-claude-code";
+    };
+
+    codex-cli = {
+      url = "github:sadjow/codex-cli-nix";
+    };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ghostty, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, ghostty, codex-cli, claude-code, ... }@inputs:
     let
 
       # import nodes
@@ -37,13 +45,13 @@
         home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system};
           extraSpecialArgs = {
-            inherit self configName ghostty isNixOS;
+            inherit self configName ghostty isNixOS codex-cli claude-code;
             inherit (self) inputs;
             pkgs-unstable = mkUnstable system;
           };
           modules = [
             ./home.nix
-            inputs.sops-nix.nixosModules.sops
+            inputs.sops-nix.homeManagerModules.sops
             {
               home.username = username;
               home.homeDirectory = homeDirectory;
@@ -54,20 +62,21 @@
       # NixOS configuration 
       mkNixosConfig = system: hostname: username: configName: isNixOS: extraModules:
         nixpkgs.lib.nixosSystem {
-          inherit system;
           modules = [
+            { nixpkgs.hostPlatform = system; }
             ./hosts/${hostname}/configuration.nix
             inputs.sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager {
+              home-manager.backupFileExtension = "bak";
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.${username} = { 
                 imports = [ ./home.nix ] ++ extraModules;
               };
               home-manager.extraSpecialArgs = {
-                inherit self configName ghostty isNixOS;
+                inherit self configName ghostty isNixOS codex-cli claude-code;
                 inherit (self) inputs;
-                pkgs-unstable = mkUnstable.system;
+                pkgs-unstable = mkUnstable system;
               };
             }
           ];

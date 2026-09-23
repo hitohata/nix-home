@@ -10,6 +10,9 @@
       ./hardware-configuration.nix
       ../shared/nas.nix
       ../shared/avahi.nix
+      ../../services/immich.nix
+      ../../services/homepage.nix
+      ../../services/k3s/k3s_server.nix
     ];
 
   # Bootloader.
@@ -70,7 +73,7 @@
 
   programs.hyprland.enable = true;
 
-  system.stateVersion = "25.11"; # Did you read the comment?
+  system.stateVersion = "26.05"; # Did you read the comment?
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 }

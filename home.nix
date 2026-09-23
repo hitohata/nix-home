@@ -1,5 +1,5 @@
 { pkgs, pkgs-unstable, configName, lib, isNixOS, ... }: {
-  home.stateVersion = "25.11";
+  home.stateVersion = "26.05";
 
   # to avoid man-db conflict
   manual.manpages.enable = false;

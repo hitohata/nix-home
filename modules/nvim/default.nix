@@ -1,6 +1,13 @@
 { pkgs, pkgs-unstable, ... }:
 let
-  luaConfig = builtins.readFile ./lua/init.lua;
+  luaConfig = ''
+    ${builtins.readFile ./lua/init.lua}
+    ${builtins.readFile ./packages/lua.lua}
+    ${builtins.readFile ./packages/nix.lua}
+    ${builtins.readFile ./packages/python.lua}
+    ${builtins.readFile ./packages/rust.lua}
+    ${builtins.readFile ./packages/typescript.lua}
+  '';
 
   # Plugins
   corePlugins = import ./plugins/core.nix { inherit pkgs; };
@@ -28,7 +35,7 @@ in
       ++ completionPlugins
       ++ languagePlugins;
 
-    extraLuaConfig = luaConfig;
+    initLua = luaConfig;
 
     extraPackages = toolsPackages;
   };

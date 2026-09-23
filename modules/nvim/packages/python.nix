@@ -5,9 +5,6 @@
       nvim-dap
       nvim-dap-python
     ];
-    extraLuaConfig = ''
-      ${builtins.readFile ./python.lua}
-    '';
   };
 
   home.packages = with pkgs; [

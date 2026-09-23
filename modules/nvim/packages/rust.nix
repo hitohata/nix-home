@@ -5,10 +5,6 @@
       crates-nvim
       nvim-dap
     ];
-
-    extraLuaConfig = ''
-      ${builtins.readFile ./rust.lua}
-    '';
   };
 
   home.packages = with pkgs; [

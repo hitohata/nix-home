@@ -33,6 +33,8 @@
     # Network tools
     jq
     yq
+    kubectl
+    kubeseal
 
     # Development tools
     gnumake
@@ -50,4 +52,3 @@
     comma # https://github.com/nix-community/comma
   ];
 }
-

@@ -61,6 +61,7 @@ in
       ./desktops/hyprland/default.nix
       ./desktops/gnome/home.nix
       ./modules/browsers/default.nix
+      ./services/k3s/k3s_home.nix
     ];
   };
 
@@ -77,6 +78,10 @@ in
       ./desktop_modules/default.nix
       ./modules/browsers/default.nix
       ./modules/dev_modules/default.nix
+      ./modules/others/gui/camera.nix
+      ./modules/specific/ai_tool/claude.nix
+      ./modules/specific/ai_tool/codex.nix
+      ./desktop_modules/nextcloud.nix
     ];
   };
 
@@ -100,6 +105,16 @@ in
     isNixos = false;
     extraModules = [
       ./services/garage.nix
+    ];
+  };
+  "user@p51" = {
+    system = "aarch64-linux";
+    hostname = "aarch64";
+    username = "hoge";
+    homeDir =  "/home/hoge";
+    isNixos = false;
+    extraModules = [
+      ./modules/others/nbd/default.nix
     ];
   };
 }
