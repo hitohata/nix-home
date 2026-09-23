@@ -1,4 +1,5 @@
-{ pkgs, config, lib, ghostty, ... }: {
+{ pkgs, config, lib, ghostty, enableGhostty, ... }:
+lib.mkIf enableGhostty {
   programs.ghostty = {
     enable = true;
 
