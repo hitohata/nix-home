@@ -1,6 +1,8 @@
 { pkgs, lib, ... }:
 
 {
+  imports = [ ./shortcuts.nix ];
+
   gtk = {
     enable = true;
     theme = lib.mkDefault {

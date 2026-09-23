@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports =
@@ -8,6 +8,7 @@
       ../shared/avahi.nix
       ../../desktops/gnome
       ../../desktops/kde
+      ../../desktops/hyprland/system.nix
     ];
 
   # Bootloader.
@@ -46,6 +47,16 @@
     pulse.enable = true;
   };
 
+  # GDM presents every installed desktop session at login. Keep this choice
+  # local to x1; individual desktop modules only enable their own session.
+  services.displayManager.gdm.enable = true;
+
+  home-manager.users.hoge.imports = [
+    ../../desktops/gnome/home.nix
+    ../../desktops/kde/home.nix
+    ../../desktops/hyprland/default.nix
+  ];
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.hoge = {
     isNormalUser = true;
@@ -54,18 +65,6 @@
     packages = with pkgs; [
     ];
   };
-
-  # for screen share
-  xdg.portal = {
-    enable = true;
-    # GNOME's portal implements the ScreenCast API used by browser and
-    # Electron meeting clients. Keep GTK as the fallback for other portals.
-    config.gnome.default = [ "gnome" "gtk" ];
-  };
-
-  # The Home Manager Hyprland module otherwise exports a portal directory that
-  # contains only the Hyprland backend, hiding GNOME's ScreenCast portal.
-  home-manager.users.hoge.xdg.portal.enable = lib.mkForce false;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
