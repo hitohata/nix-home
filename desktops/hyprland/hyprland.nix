@@ -13,6 +13,10 @@ in
 {
   wayland.windowManager.hyprland = {
     enable = true;
+
+    # This configuration uses Hyprland's traditional $variables (for example
+    # $mainMod). Home Manager's new Lua generator cannot represent those names.
+    configType = "hyprlang";
     
     settings = environment // monitors // input // lookAndFeel // autostart // keybindings // windowrules;
   };

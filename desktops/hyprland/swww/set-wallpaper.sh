@@ -22,7 +22,7 @@ TRANSITION=${TRANSITIONS[$RANDOM % ${#TRANSITIONS[@]}]}
 POSITION=${POSITIONS[$RANDOM % ${#POSITIONS[@]}]}
 ANGLE=$((RANDOM % 360))
 
-swww img "$WALLPAPER" \
+awww img "$WALLPAPER" \
   --resize crop \
   --transition-type "$TRANSITION" \
   --transition-step 255 \
