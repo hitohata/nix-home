@@ -4,15 +4,14 @@
     inputMethod = {
       enable = true;
       type = "ibus";
-      ibus.engines = with pkgs.ibus-engines; [ mozc ];
+      ibus = {
+        engines = with pkgs.ibus-engines; [ mozc ];
+        # Plasma Wayland starts IBus through KWin's virtual-keyboard bridge.
+        # Do not load the legacy Qt/GTK IBus modules in that session: they
+        # bypass the bridge and leave Mozc in direct (Latin) input mode.
+        waylandFrontend = true;
+      };
     };
-  };
-
-  # for Wayland
-  environment.variables = {
-    QT_IM_MODULE = "ibus";
-    XMODIFIERS = "@im=ibus";
-    GTK_IM_MODULE = "ibus";
   };
 
   fonts.packages = with pkgs; [
