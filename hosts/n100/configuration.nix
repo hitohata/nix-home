@@ -21,8 +21,18 @@
 
   networking.hostName = "n100"; # Define your hostname.
 
-  # Enable networking
-  networking.networkmanager.enable = true;
+  # Static network configuration for the Dejima LAN.
+  networking.networkmanager.enable = false;
+  networking.useDHCP = false;
+  networking.interfaces.enp1s0 = {
+    useDHCP = false;
+    ipv4.addresses = [ {
+      address = "192.168.10.10";
+      prefixLength = 24;
+    } ];
+  };
+  networking.defaultGateway = "192.168.10.1";
+  networking.nameservers = [ "192.168.10.1" ];
 
   # Set your time zone.
   time.timeZone = "America/Vancouver";
