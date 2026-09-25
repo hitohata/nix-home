@@ -7,7 +7,17 @@
 
   # GitHub Copilot (inline suggestions)
   {
-    plugin = copilot-lua;
+    # nixpkgs currently pins v2.0.4 to a hash that no longer matches the
+    # GitHub release archive. Keep the package version, but use the verified
+    # archive hash returned by Nix.
+    plugin = copilot-lua.overrideAttrs (_: {
+      src = pkgs.fetchFromGitHub {
+        owner = "zbirenbaum";
+        repo = "copilot.lua";
+        tag = "v2.0.4";
+        hash = "sha256-05f76OeWBlFmlUh90tH4XMMKfNI1jnhuIJDqYPPQokA=";
+      };
+    });
     type = "lua";
     config = ''
       require("copilot").setup {
@@ -89,4 +99,3 @@
     '';
   }
 ]
-
