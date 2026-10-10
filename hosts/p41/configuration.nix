@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../../services/k3s/k3s_server.nix
     ];
 
   # Use the extlinux boot loader. (NixOS wants to enable GRUB by default)
@@ -15,10 +16,22 @@
   # Enables the generation of /boot/extlinux/extlinux.conf
   boot.loader.generic-extlinux-compatible.enable = true;
 
-  # networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = "p41";
 
-  # Configure network connections interactively with nmcli or nmtui.
-  networking.networkmanager.enable = true;
+  # Static network configuration for the Dejima LAN.
+  networking.networkmanager.enable = false;
+  networking.useDHCP = false;
+  networking.interfaces.end0 = {
+    useDHCP = false;
+    ipv4.addresses = [ {
+      address = "192.168.10.12";
+      prefixLength = 24;
+    } ];
+  };
+  networking.defaultGateway = "192.168.10.1";
+  networking.nameservers = [ "192.168.10.1" ];
+
+  services.k3s.extraFlags = [ "--tls-san 192.168.10.12" ];
 
   # Set your time zone.
   # time.timeZone = "Europe/Amsterdam";
@@ -139,4 +152,3 @@
   system.stateVersion = "26.11"; # Did you read the comment?
 
 }
-
