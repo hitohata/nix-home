@@ -85,6 +85,7 @@
   nixpkgs.config.allowUnfree = true;
 
   environment.systemPackages = with pkgs; [
+    android-tools
   ];
 
   system.stateVersion = "26.05"; # Did you read the comment?
