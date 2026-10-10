@@ -34,6 +34,9 @@
   networking.defaultGateway = "192.168.10.1";
   networking.nameservers = [ "192.168.10.1" ];
 
+  # Convert the existing single-server SQLite cluster to embedded etcd.
+  services.k3s.clusterInit = true;
+
   # Set your time zone.
   time.timeZone = "America/Vancouver";
 
