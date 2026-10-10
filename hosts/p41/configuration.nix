@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../shared/avahi.nix
       ../../services/k3s/k3s_server.nix
     ];
 
