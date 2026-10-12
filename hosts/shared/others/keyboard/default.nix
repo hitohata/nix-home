@@ -2,6 +2,7 @@
 
 let
   cfg = config.hosts.shared.keyboard;
+  xkbOptions = cfg.xkbOptions ++ lib.optionals cfg.capsLockAsCtrl [ "caps:ctrl_modifier" ];
 in
 {
   options.hosts.shared.keyboard = {
@@ -15,5 +16,5 @@ in
   };
 
   config.services.xserver.xkb.options = lib.concatStringsSep ","
-    (cfg.xkbOptions ++ lib.optionals cfg.capsLockAsCtrl [ "caps:ctrl_modifier" ]);
+    xkbOptions;
 }

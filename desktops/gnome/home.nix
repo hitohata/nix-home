@@ -12,6 +12,9 @@
       switch-applications = [];
       switch-applications-backward = [];
     };
+    "org/gnome/desktop/input-sources" = {
+      xkb-options = [ "grp:win_ctrl_toggle" "caps:ctrl_modifier" ];
+    };
     "org/gnome/mutter" = {
       experimental-features = [ "scale-monitor-framebuffer" ];
       workspaces-only-on-primary = false;

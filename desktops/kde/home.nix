@@ -3,6 +3,13 @@
 {
   imports = [ ./shortcuts.nix ];
 
+  # Plasma Wayland reads XKB options from kxkbrc instead of inheriting them
+  # from services.xserver.xkb.
+  xdg.configFile."kxkbrc".text = ''
+    [Layout]
+    Options=grp:win_ctrl_toggle,caps:ctrl_modifier
+  '';
+
   # Make the Plasma IBus Wayland session start in Mozc's Hiragana mode.
   # `mozc-on` is the Mozc engine whose composition mode is explicitly
   # Hiragana; retaining XKB as the other engine keeps English available.
