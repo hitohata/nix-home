@@ -67,9 +67,9 @@
             ./hosts/${hostname}/configuration.nix
             inputs.sops-nix.nixosModules.sops
             home-manager.nixosModules.home-manager {
-              # Preserve existing user files during the first activation. The
-              # original suffix is already occupied by a previous backup.
-              home-manager.backupFileExtension = "home-manager-backup-20260923";
+              # Preserve existing user files during activation. Use a fresh
+              # suffix when the previous backup name is already occupied.
+              home-manager.backupFileExtension = "home-manager-backup-20261012";
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.${username} = { 
