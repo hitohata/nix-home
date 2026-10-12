@@ -4,7 +4,9 @@
     kb_layout = "us,jp";
     kb_variant = "";
     kb_model = "";
-    kb_options = "grp:win_space_toggle";
+    # Hyprland sets its own XKB options instead of inheriting the NixOS host
+    # options configured through services.xserver.xkb.
+    kb_options = "grp:win_space_toggle,caps:ctrl_modifier";
     kb_rules = "";
     numlock_by_default = true;
 
