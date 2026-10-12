@@ -1,0 +1,19 @@
+{ config, lib, ... }:
+
+let
+  cfg = config.hosts.shared.keyboard;
+in
+{
+  options.hosts.shared.keyboard = {
+    xkbOptions = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+      description = "Additional XKB options for this host.";
+    };
+
+    capsLockAsCtrl = lib.mkEnableOption "mapping Caps Lock to Ctrl";
+  };
+
+  config.services.xserver.xkb.options = lib.concatStringsSep ","
+    (cfg.xkbOptions ++ lib.optionals cfg.capsLockAsCtrl [ "caps:ctrl_modifier" ]);
+}
