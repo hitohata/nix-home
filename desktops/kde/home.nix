@@ -3,10 +3,12 @@
 {
   imports = [ ./shortcuts.nix ];
 
-  # Plasma Wayland reads XKB options from kxkbrc instead of inheriting them
-  # from services.xserver.xkb.
+  # KWin Wayland reads XKB options from kxkbrc instead of inheriting them
+  # from services.xserver.xkb, and applies Options only when ResetOldOptions
+  # is enabled.
   xdg.configFile."kxkbrc".text = ''
     [Layout]
+    ResetOldOptions=true
     Options=grp:win_ctrl_toggle,ctrl:nocaps
   '';
 
