@@ -5,6 +5,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../shared/input.nix
+      ../shared/others/keyboard
       ../shared/avahi.nix
       ../../desktops/gnome
       ../../desktops/kde
@@ -29,7 +30,11 @@
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us,jp";
-    options = "grp:win_ctrl_toggle";
+  };
+
+  hosts.shared.keyboard = {
+    xkbOptions = [ "grp:win_ctrl_toggle" ];
+    capsLockAsCtrl = true;
   };
 
   services.tailscale = {
