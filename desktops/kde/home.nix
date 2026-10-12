@@ -7,7 +7,7 @@
   # from services.xserver.xkb.
   xdg.configFile."kxkbrc".text = ''
     [Layout]
-    Options=grp:win_ctrl_toggle,caps:ctrl_modifier
+    Options=grp:win_ctrl_toggle,ctrl:nocaps
   '';
 
   # Make the Plasma IBus Wayland session start in Mozc's Hiragana mode.

@@ -2,7 +2,7 @@
 
 let
   cfg = config.hosts.shared.keyboard;
-  xkbOptions = cfg.xkbOptions ++ lib.optionals cfg.capsLockAsCtrl [ "caps:ctrl_modifier" ];
+  xkbOptions = cfg.xkbOptions ++ lib.optionals cfg.capsLockAsCtrl [ "ctrl:nocaps" ];
 in
 {
   options.hosts.shared.keyboard = {

@@ -4,7 +4,7 @@
     kb_layout = "us,jp";
     kb_variant = "";
     kb_model = "";
-    kb_options = "grp:win_space_toggle,caps:ctrl_modifier";
+    kb_options = "grp:win_space_toggle,ctrl:nocaps";
     kb_rules = "";
     numlock_by_default = true;
 
