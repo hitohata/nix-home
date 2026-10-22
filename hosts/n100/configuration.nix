@@ -38,7 +38,7 @@
   services.k3s.clusterInit = true;
 
   # Set your time zone.
-  time.timeZone = "America/Vancouver";
+  time.timeZone = "Asia/Tokyo";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_CA.UTF-8";
