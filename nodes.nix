@@ -115,4 +115,14 @@ in
       ./modules/others/nbd/default.nix
     ];
   };
+  "user@p41" = {
+    system = "aarch64-linux";
+    hostname = "p41";
+    username = "hoge";
+    homeDir =  "/home/hoge";
+    isNixos = true;
+    extraModules = [
+      ./services/k3s/k3s_home.nix
+    ];
+  };
 }
