@@ -69,7 +69,8 @@
             home-manager.nixosModules.home-manager {
               # Preserve existing user files during the first activation. The
               # original suffix is already occupied by a previous backup.
-              home-manager.backupFileExtension = "home-manager-backup-20260923";
+              home-manager.backupFileExtension = "home-manager-backup-20261015";
+              home-manager.overwriteBackup = true;
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.${username} = { 

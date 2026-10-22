@@ -20,11 +20,14 @@
 
   networking.hostName = "x1"; # Define your hostname.
 
+  # Enable Docker Engine for local development containers.
+  virtualisation.docker.enable = true;
+
   # Enable networking
   networking.networkmanager.enable = true;
 
   # Set your time zone.
-  time.timeZone = "America/Vancouver";
+  time.timeZone = "Asia/Tokyo";
 
   # Configure keymap in X11
   services.xserver.xkb = {
@@ -67,6 +70,8 @@
   services.displayManager.gdm.enable = true;
 
   home-manager.users.hoge.imports = [
+    ../../modules/dev_modules/moov.nix
+    ../../modules/dev_modules/android.nix
     ../../desktops/gnome/home.nix
     ../../desktops/kde/home.nix
     ../../desktops/hyprland/default.nix
@@ -76,7 +81,7 @@
   users.users.hoge = {
     isNormalUser = true;
     description = "hoge";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "kvm" ];
     packages = with pkgs; [
     ];
   };
@@ -86,6 +91,7 @@
 
   environment.systemPackages = with pkgs; [
   ];
+
 
   system.stateVersion = "26.05"; # Did you read the comment?
 
