@@ -6,6 +6,7 @@
       ./hardware-configuration.nix
       ../shared/input.nix
       ../shared/avahi.nix
+      ../shared/nix-gc.nix
       ../../desktops/gnome
       ../../desktops/kde
       ../../desktops/hyprland/system.nix
