@@ -104,6 +104,15 @@ from `home.nix`; host-specific NixOS settings belong in
 `hosts/<hostname>/configuration.nix` and hardware configuration first, then add
 the node with `isNixos = true`.
 
+Set `enableTerminal = true;` in a node's entry in `nodes.nix` to enable all
+configured graphical terminal emulators together. Omit the setting to leave
+them disabled; no explicit `enableTerminal = false;` is needed.
+The group currently contains Ghostty; add other emulators to the same group in
+`modules/terminal/default.nix` so they share the flag. `user@x1` and
+`user@centre` enable the group; `user@n100` and `user@p41` leave it disabled.
+Hyprland's `Super+Enter` shortcut opens Ghostty when the group is enabled.
+Zellij remains available independently.
+
 ## Secrets
 
 Secrets are encrypted with [SOPS](https://github.com/getsops/sops) and age, then

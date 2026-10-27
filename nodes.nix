@@ -71,6 +71,7 @@ in
     username = "hoge";
     homeDir =  "/home/hoge";
     isNixos = true;
+    enableTerminal = true;
     extraModules = [
       ./desktop_modules/default.nix
       ./modules/browsers/default.nix
@@ -88,6 +89,7 @@ in
     username = "hoge";
     homeDir =  "/home/hoge";
     isNixos = true;
+    enableTerminal = true;
     extraModules = [
       ./desktops/hyprland/default.nix
       ./services/shared/sops.nix
@@ -100,7 +102,6 @@ in
     username = "hoge";
     homeDir =  "/home/hoge";
     isNixos = false;
-    enableGhostty = false;
     extraModules = [
       # ./services/garage.nix
     ];

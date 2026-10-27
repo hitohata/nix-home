@@ -1,15 +1,15 @@
+{ lib, enableTerminal }:
 {
   "$mainMod" = "SUPER";
 
   # Application variables
-  "$terminal" = "ghostty";
   "$fileManager" = "nautilus";
   "$menu" = "wofi --show drun";
   "$locker" = "swaylock -f";
   "$browser" = "firefox";
   "$editor" = "code";
 
-  bind = [
+  bind = lib.optional enableTerminal "$mainMod, RETURN, exec, $terminal" ++ [
     # Familiar GNOME-style actions
     "$mainMod, A, exec, pkill wofi || $menu"
     "$mainMod, L, exec, $locker"
@@ -23,7 +23,6 @@
     "SHIFT, PRINT, exec, grim -g \"$(slurp)\" - | wl-copy"
 
     # Everyday applications
-    "$mainMod, RETURN, exec, $terminal"
     "$mainMod, E, exec, $fileManager"
     "$mainMod, B, exec, $browser"
     "$mainMod, C, exec, $editor"
@@ -93,4 +92,6 @@
     ", XF86AudioPause, exec, playerctl play-pause"
     ", XF86AudioPlay, exec, playerctl play-pause"
   ];
+} // lib.optionalAttrs enableTerminal {
+  "$terminal" = "ghostty";
 }
