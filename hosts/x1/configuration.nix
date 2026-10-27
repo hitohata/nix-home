@@ -64,6 +64,9 @@
     # Use NVIDIA's compatible proprietary module; Wayland KMS support remains
     # enabled through the setting above.
     open = false;
+    # Preserve GPU memory and run NVIDIA's suspend/resume hooks so KWin's
+    # graphics allocations survive sleep with the proprietary driver.
+    powerManagement.enable = true;
   };
 
   # GDM presents every installed desktop session at login. Keep this choice
