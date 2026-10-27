@@ -41,11 +41,11 @@
       };
 
       # Home manager configurations
-      mkHomeConfig = system: username: homeDirectory: configName: isNixOS: enableGhostty: extraModules:
+      mkHomeConfig = system: username: homeDirectory: configName: isNixOS: enableTerminal: extraModules:
         home-manager.lib.homeManagerConfiguration {
           pkgs = nixpkgs.legacyPackages.${system};
           extraSpecialArgs = {
-            inherit self configName ghostty isNixOS enableGhostty codex-cli claude-code;
+            inherit self configName ghostty isNixOS enableTerminal codex-cli claude-code;
             inherit (self) inputs;
             pkgs-unstable = mkUnstable system;
           };
@@ -60,7 +60,7 @@
         };
       
       # NixOS configuration 
-      mkNixosConfig = system: hostname: username: configName: isNixOS: enableGhostty: extraModules:
+      mkNixosConfig = system: hostname: username: configName: isNixOS: enableTerminal: extraModules:
         nixpkgs.lib.nixosSystem {
           modules = [
             { nixpkgs.hostPlatform = system; }
@@ -77,7 +77,7 @@
                 imports = [ ./home.nix ] ++ extraModules;
               };
               home-manager.extraSpecialArgs = {
-                inherit self configName ghostty isNixOS enableGhostty codex-cli claude-code;
+                inherit self configName ghostty isNixOS enableTerminal codex-cli claude-code;
                 inherit (self) inputs;
                 pkgs-unstable = mkUnstable system;
               };
@@ -87,12 +87,12 @@
     in {
       # --- Home Manager ---
       homeConfigurations = builtins.mapAttrs
-        (name: node: mkHomeConfig node.system node.username node.homeDir name node.isNixos (node.enableGhostty or true) node.extraModules)
+        (name: node: mkHomeConfig node.system node.username node.homeDir name node.isNixos (node.enableTerminal or false) node.extraModules)
         (nixpkgs.lib.filterAttrs (_: n: !n.isNixos) nodes); 
 
       # For nixOS
       nixosConfigurations = builtins.mapAttrs
-        (name: node: mkNixosConfig node.system node.hostname node.username name node.isNixos (node.enableGhostty or true) node.extraModules)
+        (name: node: mkNixosConfig node.system node.hostname node.username name node.isNixos (node.enableTerminal or false) node.extraModules)
         (nixpkgs.lib.filterAttrs (_: n: n.isNixos) nodes); 
     };
 }
