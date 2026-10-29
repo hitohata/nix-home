@@ -6,6 +6,7 @@
 - [Window Management](#window-management)
 - [Code Outline (Aerial)](#code-outline-aerial)
 - [LSP (Language Server)](#lsp-language-server)
+- [Flutter and Dart](#flutter-and-dart)
 - [Code Completion](#code-completion)
 - [GitHub Copilot](#github-copilot)
 - [Avante (AI Agent)](#avante-ai-agent)
@@ -96,6 +97,36 @@ Aerial provides a code outline window for skimming and quick navigation through 
 | `<leader>ca` | Code action |
 | `<leader>f` | Format code |
 | `<leader>fd` | Show diagnostics (Telescope) |
+
+## Flutter and Dart
+
+`flutter-tools.nvim` starts the Dart language server and uses the existing completion,
+diagnostics, navigation, rename, code action, and formatting bindings above.
+Do not separately enable `dartls`, since that would start a second language server.
+
+The Flutter/Dart SDK must be available on `PATH` when starting Neovim (for example,
+start `nvim` inside the project's development shell). The x1 Android development
+module already installs Flutter. Run `flutter pub get` (or `dart pub get` for a
+pure Dart project) in the project directory before editing.
+
+These bindings are available in Dart buffers. `<leader>` is Space.
+
+| Keybinding | Command | Description |
+|------------|---------|-------------|
+| `<leader>dr` | `:FlutterRun` | Run the app |
+| `<leader>dh` | `:FlutterReload` | Hot reload |
+| `<leader>dR` | `:FlutterRestart` | Hot restart |
+| `<leader>dq` | `:FlutterQuit` | Stop the app |
+| `<leader>dd` | `:FlutterDevices` | Select a connected device |
+| `<leader>de` | `:FlutterEmulators` | Select an emulator |
+| `<leader>dl` | `:FlutterLogToggle` | Show/hide application logs |
+| `<leader>do` | `:FlutterOutlineToggle` | Show/hide widget outline |
+
+For projects with flavors or a custom entry point, pass the project's usual
+arguments directly, for example `:FlutterRun --flavor dev -t lib/main_dev.dart`.
+Use `:FlutterLspRestart` to restart the Dart language server if needed.
+`<leader>f` formats Dart code and `<leader>ca` opens code actions, including
+available import fixes and Flutter refactorings.
 
 ## Code Completion
 

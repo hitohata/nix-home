@@ -25,6 +25,7 @@ in
     ./packages/nix.nix
     ./packages/typescript.nix
     ./packages/lua.nix
+    ./packages/dart.nix
   ];
   programs.neovim = {
     enable = true;    
