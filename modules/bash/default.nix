@@ -96,6 +96,11 @@ in
       
       # Set random terminal background
       ${terminalBackground}
+
+      # Optional configuration kept only on this machine.
+      if [[ -r "$HOME/.config/bash/local.bash" ]]; then
+        source "$HOME/.config/bash/local.bash"
+      fi
     '';
 
     # Extra content for .profile (login shell)
