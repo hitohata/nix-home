@@ -1,4 +1,4 @@
-{ pkgs, configName, ... }:
+{ pkgs, configName, lib, ... }:
 let
   # Import shell scripts
   initScript = builtins.readFile ./scripts/init.sh;
@@ -77,6 +77,8 @@ in
       # Copilot
       # to use latest tool, call it via npx
       copilot = "nix shell nixpkgs#nodejs -c npx copilot";
+    } // lib.optionalAttrs pkgs.stdenv.isLinux {
+      open = "${pkgs.coreutils}/bin/env -u LD_LIBRARY_PATH ${pkgs.glib.bin}/bin/gio open";
     };
 
     # Environment variables
