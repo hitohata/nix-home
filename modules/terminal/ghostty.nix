@@ -1,8 +1,6 @@
-{ pkgs, config, lib, ghostty, enableGhostty, ... }:
-lib.mkIf enableGhostty {
+{ pkgs, config, lib, ghostty, ... }:
+lib.mkIf config.programs.ghostty.enable {
   programs.ghostty = {
-    enable = true;
-
     package = if pkgs.stdenv.isDarwin
                 then null
                 else ghostty.packages.${pkgs.stdenv.hostPlatform.system}.ghostty;

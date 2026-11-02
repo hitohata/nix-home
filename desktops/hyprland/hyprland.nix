@@ -1,4 +1,4 @@
-{ pkgs, ... }: 
+{ pkgs, lib, enableTerminal, ... }:
 
 let
   # Import modular configuration files
@@ -7,7 +7,7 @@ let
   input = import ./hyprland/input.nix;
   lookAndFeel = import ./hyprland/look_and_feel.nix;
   autostart = import ./hyprland/autostart.nix;
-  keybindings = import ./hyprland/keybindings.nix;
+  keybindings = import ./hyprland/keybindings.nix { inherit lib enableTerminal; };
   windowrules = import ./hyprland/windowrules.nix;
 in
 {

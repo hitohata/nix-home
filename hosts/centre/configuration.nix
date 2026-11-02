@@ -10,6 +10,7 @@
       ./hardware-configuration.nix
       ../shared/nas.nix
       ../shared/avahi.nix
+      ../shared/nix-gc.nix
       # ../../services/immich.nix
       ../../services/nextcloud.nix
     ];
