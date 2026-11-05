@@ -33,6 +33,9 @@
   networking.defaultGateway = "192.168.10.1";
   networking.nameservers = [ "192.168.10.1" ];
 
+  # Keep Avahi from advertising Kubernetes bridge and overlay addresses.
+  services.avahi.allowInterfaces = [ "end0" ];
+
   services.k3s = {
     serverAddr = "https://n100.local:6443";
     tokenFile = "/etc/rancher/k3s/server-token";
