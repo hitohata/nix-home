@@ -62,6 +62,7 @@ in
       ./desktops/gnome/home.nix
       ./modules/browsers/default.nix
       ./services/k3s/k3s_home.nix
+      ./modules/specific/ai_tool/codex.nix
     ];
   };
 
@@ -124,6 +125,7 @@ in
     isNixos = true;
     extraModules = [
       ./services/k3s/k3s_home.nix
+      ./modules/specific/ai_tool/codex.nix
     ];
   };
 }
