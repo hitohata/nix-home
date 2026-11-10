@@ -20,6 +20,13 @@
 
   networking.hostName = "p41";
 
+  # Identify the USB SSD by its serial number; /dev/sda can change.
+  fileSystems."/mnt/ssd" = {
+    device = "/dev/disk/by-id/ata-Patriot_Burst_Elite_120GB_PBEHHBB241015005541";
+    fsType = "ext4";
+    options = [ "nofail" "x-systemd.device-timeout=10s" ];
+  };
+
   # Static network configuration for the Dejima LAN.
   networking.networkmanager.enable = false;
   networking.useDHCP = false;
