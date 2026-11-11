@@ -51,6 +51,12 @@ from the K3s server. Do not copy the server kubeconfig unchanged to another
 machine; replace its `server:` address with the server's reachable IP or DNS
 name first.
 
+The shared K3s module enables NFS client support on both NixOS cluster nodes
+(`n100` and `p41`) so kubelet can mount NFS-backed persistent volumes. This
+does not add a host-level NAS mount or change application node placement.
+After changing this module, rebuild each affected host with its matching
+`user@n100` or `user@p41` target.
+
 ## Update packages
 
 Update every flake input and write the new revisions to `flake.lock`:
