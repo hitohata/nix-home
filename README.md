@@ -181,6 +181,9 @@ build, activation, or physical disconnect/stop test was performed.
 ### Longhorn V1 host prerequisites (n100 and p41)
 
 The next storage pilot targets **Longhorn 1.13.0 V1** with two SSD replicas.
+V1 is the intended operating engine using the existing SSDs; no automatic
+later migration to V2 is planned. Longhorn release upgrades remain separate
+from choosing the data engine.
 Only n100/p41 import `services/k3s/longhorn-v1.nix`: open-iscsi 2.1.13,
 active iscsid, iscsi_tcp/dm_crypt, NFS and host utilities. Stable initiator
 names differ by node. Their K3s flags declare

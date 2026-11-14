@@ -12,6 +12,18 @@ host utilities, privileged workloads and mount propagation. The observed
 cluster uses K3s 1.35.8 on n100/p41 and 1.35.7 on p51. Do not enable V2,
 configure SPDK, reserve huge pages, or use raw block disks for this pilot.
 
+V1 is the intended operating engine, not a temporary prerequisite for V2.
+It supports the required replication and recovery workflow while retaining
+n100's existing root SSD and p41's mounted ext4 SSD. Selecting V1 does not
+pin Longhorn itself to an old release: continue reviewing and applying
+supported Longhorn upgrades. In 1.13.0, V1 remains the [default data engine](https://longhorn.io/docs/1.13.0/references/storage-class-parameters/#data-engine).
+No V1 removal deadline was found in the official material reviewed; this
+is not a guarantee of indefinite support. Reassess the engine if measured
+performance, required features or upstream support policy changes. V2 would
+require a separate raw-block storage design and data migration. p41's RAM
+alone does not rule out V2, since its memory allocation and interrupt mode
+are configurable, but those controls do not remove its disk requirements.
+
 The fixed nixpkgs revision `9bb52223f4f6a0cc606fd0852d8784f896c137d5`
 provides open-iscsi **2.1.13**, util-linux **2.42.4** and nfs-utils **2.9.1**
 on both architectures. Upstream warns against open-iscsi 2.1.12; the module
