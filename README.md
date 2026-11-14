@@ -178,6 +178,103 @@ units pass `systemd-analyze verify` without an ordering cycle, using no-op
 executables in place of unavailable ARM executable paths. No full system
 build, activation, or physical disconnect/stop test was performed.
 
+### Longhorn V1 host prerequisites (n100 and p41)
+
+The next storage pilot targets **Longhorn 1.13.0 V1** with two SSD replicas.
+V1 is the intended operating engine using the existing SSDs; no automatic
+later migration to V2 is planned. Longhorn release upgrades remain separate
+from choosing the data engine.
+Only n100/p41 import `services/k3s/longhorn-v1.nix`: open-iscsi 2.1.13,
+active iscsid, iscsi_tcp/dm_crypt, NFS and host utilities. Stable initiator
+names differ by node. Their K3s flags declare
+`storage.dejima.men/longhorn=true`; p51 is not changed or labeled here.
+K3s 1.35.8 reapplies configured labels at startup. Removing a flag later does
+not remove the live label; label removal requires a separate approved cluster
+change. See the [K3s label behavior](https://docs.k3s.io/cli/agent#node-labels-and-taints-for-agents).
+
+n100 prepares `/var/lib/longhorn` on its verified root SSD. p41 prepares
+`/mnt/ssd/longhorn` and bind mounts it at `/var/lib/longhorn`, keeping the
+existing local-path bind separate. SSD UUID checks and mount/service
+dependencies prevent K3s startup on the SD fallback path and propagate
+mount deactivation to K3s. Quiesce Pod writers separately before unmounting.
+K3s/etcd data directories and existing PVCs are not moved.
+
+**Host configuration alone is not a deployable Longhorn installation.**
+Dynamic CSI/instance-manager Pods still need a verified NixOS PATH integration
+in k3services; patching only chart-rendered Deployments is insufficient.
+See the [version-specific investigation and handoff](docs/longhorn-v1-host-preparation.md)
+for source evidence, NFS recovery findings, replica placement, p51's separate
+prerequisites, capacity and cross-architecture database compatibility gates.
+
+Apply in stages: review/build both hosts, obtain explicit approval for host
+activation and service interruptions, then activate **one node at a time**
+(n100, verify health/quorum, then p41). Do not interrupt two etcd members
+together. Fix p51's reported DiskPressure separately before outage tests.
+On each matching host, record the current generation and perform only the
+build/review steps before approval (`TARGET` is `user@n100` or `user@p41`):
+
+```bash
+readlink -f /run/current-system
+sudo nix-env --list-generations --profile /nix/var/nix/profiles/system
+ls -ld /var/lib/longhorn   # absent is expected before first preparation
+# On p41 also inspect /mnt/ssd/longhorn and the existing SSD/local-path mounts.
+sudo nixos-rebuild build --flake ".#TARGET"
+cat result/etc/fstab
+cat result/etc/iscsi/initiatorname.iscsi
+sudo nixos-rebuild dry-activate --flake ".#TARGET"
+```
+
+Stop and plan a backed-up migration if either new directory already contains
+data or is a symlink. Do not cover existing data with the new bind. After
+approval only, use `sudo nixos-rebuild switch --flake ".#TARGET"`; it can
+restart services. Validate each node before proceeding:
+
+```bash
+systemctl status iscsid longhorn-storage-prepare k3s
+cat /etc/iscsi/initiatorname.iscsi
+iscsiadm --version
+lsmod | rg 'iscsi_tcp|dm_crypt'
+findmnt -T /var/lib/longhorn -o TARGET,SOURCE,FSTYPE,UUID,FSROOT
+systemctl show k3s -p BindsTo -p Requires -p After
+systemctl cat k3s | rg -- '--node-label'
+# p41: both exact mounts are mandatory; bind FSROOT must be /longhorn.
+findmnt --mountpoint /mnt/ssd -o TARGET,SOURCE,UUID
+findmnt --mountpoint /var/lib/longhorn -o TARGET,SOURCE,UUID,FSROOT
+kubectl get nodes -L storage.dejima.men/longhorn
+```
+
+After approval, test host lookup using a container-like PATH through both
+host PID 1 and the iscsid namespace (no iSCSI discovery/login):
+
+```bash
+sudo env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/run/current-system/sw/bin \
+  /run/current-system/sw/bin/nsenter --mount=/proc/1/ns/mnt --net=/proc/1/ns/net -- iscsiadm --version
+ISCSID_PID=$(systemctl show iscsid -p MainPID --value)
+sudo env PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/run/current-system/sw/bin \
+  /run/current-system/sw/bin/nsenter --mount="/proc/$ISCSID_PID/ns/mnt" --net="/proc/$ISCSID_PID/ns/net" -- mount.nfs -V
+```
+
+Use the [earlier SSD maintenance checks](#p41-ssd-local-path-storage) for an
+approved p41 stop/missing-device test: both bind mounts and K3s must stop,
+and K3s must not start without the correct SSD. Such tests remain unperformed.
+After restoring the SSD, reset failed units and start K3s only after approval.
+
+Before Longhorn holds any volumes, an approved immediate rollback can use
+`sudo nixos-rebuild switch --rollback` **only if its previous generation is
+the recorded pre-change one**. This retains the SSD/local-path configuration
+already applied from PR #170. Otherwise select the recorded generation
+explicitly. Keep both data directories. Once Longhorn volumes exist, first
+arrange a separate storage/workload rollback and detach sessions safely;
+removing iSCSI or its tools while volumes are active is not a safe rollback.
+No switch, restart, reboot, preflight or cluster write is performed here.
+
+Local validation: both complete system derivations and assertions evaluate;
+generated systemd dependencies pass cycle checks; isolated guard tests reject
+missing/wrong mounts and symlinks before creation, and p41 rejects a missing
+or incorrectly rooted bind. open-iscsi 2.1.13 packages are available for both
+architectures; the AMD64 binary's version was checked. Real Pod namespace,
+host activation and outage tests remain pending. See the runbook for details.
+
 ## Update packages
 
 Update every flake input and write the new revisions to `flake.lock`:
