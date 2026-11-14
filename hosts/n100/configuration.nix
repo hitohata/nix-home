@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./longhorn-storage.nix
       ../shared/nas.nix
       ../shared/avahi.nix
       ../shared/nix-gc.nix
